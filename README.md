@@ -10,7 +10,7 @@ This repository provides a clean, robust foundation for high-performance backend
 
 - **Multi-Tier AI Agent Collaboration**: Lightweight `AGENTS.md` system entry (<80 lines / 1200 tokens budget) with zero-sum updates to eliminate hallucinations and piggybacking.
 - **Token-Efficient Skills System**: Domain workflows, local quality gates, and safety procedures separated into `.agents/skills/` (read on demand).
-- **Enterprise Visual Design Specification**: Complete, battle-tested UI design system in `docs/design/` with 19 hard rules, semantic HSL tokens, quiet selection, and layout stability.
+- **Enterprise Visual Design Specification**: `docs/design/` is **judgment** (reader jobs, named anti-patterns). It only binds if a React kit exists (`admin/` or `frontend/`). This skeleton ships **backend only** — UI tasks must scaffold the kit first (`scripts/check_ui_stack.sh` fail-closes Greenfield HTML).
 - **Modern Rust 2024 Backend**: High-performance Axum 0.8 + Tokio + Sqlx + Tracing + Tower baseline with verified health checks.
 - **1-Click Project Replication**: Automated scaffolding script (`init-project.sh`) for new projects and effortless injection into existing ones.
 

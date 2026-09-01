@@ -22,7 +22,7 @@ Inside the repo, this file is **judgment**, not a CSS dump. Three layers:
 | Layer | Lives here | Agent must |
 | --- | --- | --- |
 | **Judgment** | This file: reader job, hierarchy, copy, composition | Frame the page for the operator's job before picking widgets |
-| **Vocabulary** | [`design/tokens.md`](design/tokens.md) + product `index.css` + shared `components/ui/*` | Use named tokens and shared components. **Do not invent** colors, radii, or a parallel class set |
+| **Vocabulary** | [`design/tokens.md`](design/tokens.md) + `admin/src/index.css` + `admin/src/components/ui/*` | Use named tokens and shared components. **Do not invent** colors, radii, or a parallel class set |
 | **Checks** | PR checklist below + skill [`admin-ui-change`](../.agents/skills/admin-ui-change/SKILL.md) | Fail closed on mechanical rules. Subjective hierarchy stays a human call |
 
 Do not collapse chapters into one mega-prompt. Load this entry, then **only** the chapter the task needs. Vague phrases ("keep it clean") are not a spec; named anti-patterns in [`design/dos-donts.md`](design/dos-donts.md) are.
@@ -63,7 +63,7 @@ Third-party internals and code-highlight themes are out of scope for wrapper-con
 
 ## Hard rules
 
-0. **Stack lock.** Product UI is the in-repo kit (`admin/` or `frontend/`: React + shared `components/ui`). **Never** add a parallel page as raw `index.html` + inline CSS/JS, a second Vite/Next app, or CDN Bootstrap/Tailwind Play. **If `admin/src` and `frontend/src` are both missing, stop — do not generate UI.** Scaffold the kit (copy a known `components/ui` or `shadcn init`) in its own commit, then implement. Vercel-style standalone HTML is for *out-of-repo* artifacts with a public stylesheet — not for this codebase. Mechanical gate: `scripts/check_ui_stack.sh`.
+0. **Stack lock.** Product UI is `admin/` (React + `admin/src/components/ui`, tokens in `admin/src/index.css`). **Never** add a parallel page as raw `index.html` + inline CSS/JS, a second Vite/Next app, or CDN Bootstrap/Tailwind Play. This skeleton **ships that kit**. Extend it; do not replace it. Vercel-style standalone HTML is for *out-of-repo* artifacts with a public stylesheet — not for this codebase. Mechanical gate: `scripts/check_ui_stack.sh`.
 1. No hard-coded page colors (`#hex`, `bg-violet-*`, `text-red-*`, `bg-gray-*`) in product pages.
 2. No native `<select>`; use the shared `Select` component.
 3. Do not invent a second primary button color system.
