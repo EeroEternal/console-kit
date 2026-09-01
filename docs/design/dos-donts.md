@@ -1,5 +1,20 @@
 # Do's and Don'ts
 
+Named **generated-design** failures (call them by name in reviews):
+
+| Name | Looks like |
+| --- | --- |
+| **Rainbow accent** | Hard-coded `bg-violet-*` / second primary |
+| **Selection bar** | Theme-colored left border on the selected row |
+| **Casual subtitle** | Card subtitle that restates the title |
+| **Squeezed table** | Evidence table narrower than the pane |
+| **Tiled create** | Create/edit flattened inline instead of a Dialog |
+| **Metadata option** | Select label `name · protocol · N keys` |
+| **Slash glue** | `org/project` in one cell |
+| **Layout jump** | Wizard/select inserts unreserved height |
+| **Native confirm** | `window.confirm` / `alert` |
+| **Invented token** | New hex or radius instead of `tokens.md` / `index.css` |
+
 - Do use semantic tokens for all core surfaces, text, and states.
 - Do keep page titles and primary content aligned to the same left edge.
 - Do preserve visible focus treatment and accessible naming for icon-only actions.

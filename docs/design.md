@@ -15,6 +15,30 @@ The intended tone is pragmatic and high-signal:
 - readable in both English and Chinese without layout breakage
 - accessible enough that focus, state, and destructive actions are always unambiguous
 
+## How agents use this file
+
+Inside the repo, this file is **judgment**, not a CSS dump. Three layers:
+
+| Layer | Lives here | Agent must |
+| --- | --- | --- |
+| **Judgment** | This file: reader job, hierarchy, copy, composition | Frame the page for the operator's job before picking widgets |
+| **Vocabulary** | [`design/tokens.md`](design/tokens.md) + product `index.css` + shared `components/ui/*` | Use named tokens and shared components. **Do not invent** colors, radii, or a parallel class set |
+| **Checks** | PR checklist below + skill [`admin-ui-change`](../.agents/skills/admin-ui-change/SKILL.md) | Fail closed on mechanical rules. Subjective hierarchy stays a human call |
+
+Do not collapse chapters into one mega-prompt. Load this entry, then **only** the chapter the task needs. Vague phrases ("keep it clean") are not a spec; named anti-patterns in [`design/dos-donts.md`](design/dos-donts.md) are.
+
+**Reader jobs** (same visual language, different structure — do not force one template):
+
+| Job | Page shape |
+| --- | --- |
+| Scan and act | Entity list + toolbar; create opens a Dialog over the list |
+| Inspect one entity | Compact Entity detail dialog |
+| Complete a valid object | Create Dialog / multi-step wizard |
+| Glance then drill | Dashboard cards with reserved heights |
+| Change global config | Settings page only |
+
+New rules enter this file only when a failure **repeats** (promote-lesson: ≥ 2 sessions) or a deterministic check can catch it.
+
 ## Agent reading map
 
 Always load this file (Overview + Hard rules + PR checklist below). Then open **only** the matching chapter files.
