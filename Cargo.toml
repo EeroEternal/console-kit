@@ -2,7 +2,7 @@
 name = "rust-agentic-skeleton"
 version = "0.1.0"
 edition = "2024"
-authors = ["ParaTensor Team"]
+authors = ["Development Team"]
 description = "Industrial-grade Rust AI agentic application & gateway skeleton"
 
 [dependencies]

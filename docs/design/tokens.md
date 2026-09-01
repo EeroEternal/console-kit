@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: xrouter Admin UI
-description: Unified UI design specification for the xrouter admin console, aligned with the admin visual guidelines and implemented semantic tokens.
+name: the project Admin UI
+description: Unified UI design specification for the the project admin console, aligned with the admin visual guidelines and implemented semantic tokens.
 colors:
   brand: "#2744A5"
   background: "#FFFFFF"

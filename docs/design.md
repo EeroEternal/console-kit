@@ -1,10 +1,10 @@
-# xrouter Admin UI Design Specification
+# Admin UI Design Specification
 
 `docs/design.md` is the **only UI design entry**. Chapter details live under [`docs/design/`](design/). Do **not** load every chapter by default — use skill [`admin-ui-change`](../.agents/skills/admin-ui-change/SKILL.md).
 
 ## Overview
 
-xrouter Admin UI is a dense operational console, not a marketing site. The interface should feel controlled, technical, and calm: white and near-neutral surfaces, one clearly recognizable primary accent, and explicit semantic state colors for success, warning, and destructive paths.
+Admin UI is a dense operational console, not a marketing site. The interface should feel controlled, technical, and calm: white and near-neutral surfaces, one clearly recognizable primary accent, and explicit semantic state colors for success, warning, and destructive paths.
 
 The visual baseline is unified across pages. Every page should read as part of the same system by reusing the same semantic tokens, shared layout shell, card treatment, and dialog structure. When a case is not covered by a literal token, prefer consistency with the existing admin UI guidance over introducing a new visual dialect.
 
@@ -48,7 +48,7 @@ Third-party internals and code-highlight themes are out of scope for wrapper-con
 7. Operational submissions, applications, and creation actions (e.g. Quota Increase Application, Token Rotation, Model Bindings) must be triggered via dedicated action buttons opening an interactive modal dialog with validation and cancel/submit footers, leaving the main content area focused on list review, status, and audits rather than stacking flat inline input cards.
 8. Never use native browser popups (`window.confirm` / `alert` / `prompt`). Delete and other destructive confirms use `AlertDialog` / `ConfirmAlertDialog`; transient feedback uses toast.
 9. Prefer `t()` for copy; reserve wrap/truncate strategy for long IDs, keys, and model names.
-10. The canonical X-series brand asset uses `#2744A5`; brand identity, interactive primary, and semantic status colors remain separate roles.
+10. The canonical brand asset uses `#2744A5`; brand identity, interactive primary, and semantic status colors remain separate roles.
 11. Visible keyboard focus is mandatory, and icon-only controls require an accessible name and tooltip.
 12. Entity lists and the sidebar follow quiet selection: light primary fill (`bg-primary/10`) and weight only. Do not use theme-colored left borders, vertical accent bars, near-invisible muted grays, or parallel selection dialects.
 13. Entity detail / edit dialogs follow the Entity detail dialog pattern (`ApiKeyDetailDialog` / `RouteDetailDialog`): compact overview card + optional two-column operational cards; open from `⋯` Edit by default.

@@ -1,6 +1,6 @@
 ---
 name: pre-push-local-gates
-description: Push 前必须在本地跑满与 CI 等效的门禁(Rust fmt/clippy/tests、admin tsc/lint/vitest),禁止把 CI 当本地沙盒。Use before every git push touching src/, tests/, or admin/.
+description: Push 前必须在本地跑满与 CI 等效的门禁(Rust fmt/clippy/tests),禁止把 CI 当本地沙盒。Use before every git push touching src/ or tests/.
 ---
 
 # Pre-push local gates（推送前本地门禁）
@@ -14,20 +14,12 @@ description: Push 前必须在本地跑满与 CI 等效的门禁(Rust fmt/clippy
 在执行 `git push` 或提 PR 之前，以下命令必须**全部在本地通过**（与 CI 等效）：
 
 ```bash
-# 1. Rust 后端门禁 (在项目根目录下)
 cargo fmt --check
 cargo clippy --all-targets -- -D warnings
 cargo test --workspace
-
-# 2. 前端 Admin 门禁 (在 admin/ 目录下，如适用)
-cd admin
-npx tsc -b --noEmit
-npm run lint
-npm run build
-npx vitest run --run
 ```
 
-UI 页面改动需确保布局无抖动、中英双语 100% 对齐；发版与打 Tag 前，转入 skill
+UI 规范改动需确保符合 `docs/design.md`；发版与打 Tag 前，转入 skill
 [`release`](../release/SKILL.md) 执行完整发版流程（三查 + 人工批准硬停）。
 
 ## 适用范围与纪律 (Scope & Discipline)
