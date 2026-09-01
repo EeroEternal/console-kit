@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/layout/appsidebar.tsx","./src/components/layout/siteheader.tsx","./src/lib/utils.ts","./src/lib/i18n/index.ts","./src/lib/i18n/locales/en.ts","./src/lib/i18n/locales/zh.ts","./src/pages/dashboardpage.tsx"],"version":"5.7.3"}
