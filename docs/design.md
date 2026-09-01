@@ -63,7 +63,7 @@ Third-party internals and code-highlight themes are out of scope for wrapper-con
 
 ## Hard rules
 
-0. **Stack lock.** Product UI is the in-repo kit (`admin/` or `frontend/`: React + shared `components/ui`). **Never** add a parallel page as raw `index.html` + inline CSS/JS, a second Vite/Next app, or CDN Bootstrap/Tailwind Play. If the kit is missing, scaffold it first (or refuse); do not improvise HTML. Vercel-style standalone HTML is for *out-of-repo* artifacts with a public stylesheet — not for this codebase.
+0. **Stack lock.** Product UI is the in-repo kit (`admin/` or `frontend/`: React + shared `components/ui`). **Never** add a parallel page as raw `index.html` + inline CSS/JS, a second Vite/Next app, or CDN Bootstrap/Tailwind Play. **If `admin/src` and `frontend/src` are both missing, stop — do not generate UI.** Scaffold the kit (copy a known `components/ui` or `shadcn init`) in its own commit, then implement. Vercel-style standalone HTML is for *out-of-repo* artifacts with a public stylesheet — not for this codebase. Mechanical gate: `scripts/check_ui_stack.sh`.
 1. No hard-coded page colors (`#hex`, `bg-violet-*`, `text-red-*`, `bg-gray-*`) in product pages.
 2. No native `<select>`; use the shared `Select` component.
 3. Do not invent a second primary button color system.

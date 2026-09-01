@@ -35,7 +35,12 @@ If editing the design system itself, open only the chapters you change (plus Har
 | Token / CSS baseline change | `docs/design/tokens.md` + `admin` `index.css` / Tailwind; then change order in PR checklist footer |
 
 ## Stack lock
-If the task is "a page" and `admin/` or `frontend/` exists, implement there in React. Creating `*.html` with inline CSS is **Greenfield HTML** — stop and use the kit (or scaffold the kit). Casual title+subtitle heroes are **Marketing stack**.
+Any user-visible page (not only "Admin") loads this skill and `docs/design.md`.
+
+1. If `admin/src` and `frontend/src` are **both missing**: **stop**. Do not write HTML. Scaffold the React kit in a separate commit, or refuse.
+2. If a kit exists: implement there. Creating `*.html` + inline CSS is **Greenfield HTML**.
+3. Title + redundant subtitle + hero is **Marketing stack** / **Casual subtitle**.
+4. Run `bash scripts/check_ui_stack.sh` before claiming the UI is done.
 
 ## Do not invent
 If a chapter and an old page disagree, treat the page as drift unless the user asked to change the spec. Prefer shared primitives under `admin/src/components/ui/*` (or the product UI kit) and tokens in `index.css`. **Do not invent** a parallel palette or class vocabulary. Named anti-patterns: [`docs/design/dos-donts.md`](../../../docs/design/dos-donts.md).
