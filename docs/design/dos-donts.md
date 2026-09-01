@@ -14,6 +14,8 @@ Named **generated-design** failures (call them by name in reviews):
 | **Layout jump** | Wizard/select inserts unreserved height |
 | **Native confirm** | `window.confirm` / `alert` |
 | **Invented token** | New hex or radius instead of `tokens.md` / `index.css` |
+| **Greenfield HTML** | New `index.html` + inline CSS/JS instead of the React kit |
+| **Marketing stack** | Title + redundant subtitle + hero, as if this were a landing page |
 
 - Do use semantic tokens for all core surfaces, text, and states.
 - Do keep page titles and primary content aligned to the same left edge.

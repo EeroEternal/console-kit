@@ -63,6 +63,7 @@ Third-party internals and code-highlight themes are out of scope for wrapper-con
 
 ## Hard rules
 
+0. **Stack lock.** Product UI is the in-repo kit (`admin/` or `frontend/`: React + shared `components/ui`). **Never** add a parallel page as raw `index.html` + inline CSS/JS, a second Vite/Next app, or CDN Bootstrap/Tailwind Play. If the kit is missing, scaffold it first (or refuse); do not improvise HTML. Vercel-style standalone HTML is for *out-of-repo* artifacts with a public stylesheet — not for this codebase.
 1. No hard-coded page colors (`#hex`, `bg-violet-*`, `text-red-*`, `bg-gray-*`) in product pages.
 2. No native `<select>`; use the shared `Select` component.
 3. Do not invent a second primary button color system.
@@ -85,6 +86,7 @@ Third-party internals and code-highlight themes are out of scope for wrapper-con
 
 ## PR checklist
 
+0. No new standalone HTML/JS document; UI lives in the product kit.
 1. Colors come from semantic tokens (`primary` / `destructive` / `success` / `warning` / `muted`).
 2. Buttons use shared `Button` variants; no native selects.
 3. Dialogs follow shared structure and overlay accessibility; entity detail dialogs follow the compact Entity detail dialog pattern; overlay / Escape dismiss works; no native `confirm`/`alert`; delete uses `AlertDialog`; selected rows/sidebar use `bg-primary/10` without a theme accent bar.
