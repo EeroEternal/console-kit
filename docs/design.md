@@ -1,19 +1,75 @@
-# Admin UI Design Specification (控制台设计规范)
+# xrouter Admin UI Design Specification
 
-`docs/design.md` 是前端 UI 设计的**唯一基准入口**。
+`docs/design.md` is the **only UI design entry**. Chapter details live under [`docs/design/`](design/). Do **not** load every chapter by default — use skill [`admin-ui-change`](../.agents/skills/admin-ui-change/SKILL.md).
 
-## 一、设计基调与美学理念
+## Overview
 
-本项目 Admin UI 是一个**高密度的运维与算力控制台**，而非营销展示页。界面风格必须保持**克制、技术感、沉稳、高信号密度**：
-- **表面底色**：纯白与近中性灰底色，主内容区采用 `bg-muted/40`；
-- **主强调色**：单一、识别度高的品牌蓝/靛青色（`--primary: 226 62% 40%`），严禁紫色暗黑风；
-- **状态色彩**：明确、语义化的状态色（Success 绿色、Warning 橙黄色、Destructive 红色）；
-- **响应与双语**：在中英文切换下均不发生文本截断或布局跳动。
+xrouter Admin UI is a dense operational console, not a marketing site. The interface should feel controlled, technical, and calm: white and near-neutral surfaces, one clearly recognizable primary accent, and explicit semantic state colors for success, warning, and destructive paths.
 
-## 二、核心硬性纪律
+The visual baseline is unified across pages. Every page should read as part of the same system by reusing the same semantic tokens, shared layout shell, card treatment, and dialog structure. When a case is not covered by a literal token, prefer consistency with the existing admin UI guidance over introducing a new visual dialect.
 
-1. **严禁硬编码颜色**：必须使用语义 Token（`text-destructive`、`bg-primary`、`text-muted-foreground` 等）。
-2. **弹窗结构与视口边界**：弹窗最大宽高严格限制 `max-h-[85vh]` 并内嵌 `overflow-y-auto`；长内容使用折叠栏或标签页组织，禁止撑爆视口。
-3. **静默选中 (Quiet Selection)**：实体列表和侧边栏选中使用浅主色填充（`bg-primary/10` 或 `bg-sidebar-accent`），禁止使用高亮荧光边框或粗暴彩条。
-4. **国际化完全对称**：禁止组件内硬编码中文或英文作为唯一文案；每次新增文案必须同时补齐 `locales/zh.ts` 和 `en.ts`。
-5. **搜索与排序一致性**：排序项必须显式标明方向（如：“创建时间（新→旧）”）；搜索框 Placeholder 必须说明可检索字段。
+The intended tone is pragmatic and high-signal:
+
+- dense enough for operators handling models, routes, providers, logs, and API keys
+- restrained enough to avoid dashboard noise
+- readable in both English and Chinese without layout breakage
+- accessible enough that focus, state, and destructive actions are always unambiguous
+
+## Agent reading map
+
+Always load this file (Overview + Hard rules + PR checklist below). Then open **only** the matching chapter files.
+
+| Task | Read |
+| --- | --- |
+| Tokens / brand hex table | [`design/tokens.md`](design/tokens.md) |
+| Colors / dark mode / status | [`design/colors.md`](design/colors.md) |
+| Titles, density, wrapping | [`design/typography.md`](design/typography.md), [`design/layout.md`](design/layout.md) |
+| Shell, cards, dashboard rows, filters | [`design/layout.md`](design/layout.md) |
+| Wizard / select height jump | [`design/layout.md`](design/layout.md) → Layout stability |
+| List / master–detail / detail dialog / wizard | [`design/components.md`](design/components.md) (+ layout stability when needed) |
+| Shadows, radius | [`design/surfaces.md`](design/surfaces.md) |
+| Quick anti-patterns | [`design/dos-donts.md`](design/dos-donts.md) |
+| Enterprise Visual Spec & Tokens | [`../DESIGN.md`](../DESIGN.md) + [`design/visual-specification.pdf`](design/visual-specification.pdf) |
+| Editing the visual baseline | touched chapter(s) + Hard rules / PR checklist; token table in `design/tokens.md` |
+
+## Scope
+
+Applies to `admin/src/pages/*`, `admin/src/components/*`, and `admin/src/components/ui/*`.
+Third-party internals and code-highlight themes are out of scope for wrapper-controlled styling only.
+
+## Hard rules
+
+1. No hard-coded page colors (`#hex`, `bg-violet-*`, `text-red-*`, `bg-gray-*`) in product pages.
+2. No native `<select>`; use the shared `Select` component.
+3. Do not invent a second primary button color system.
+4. Dialogs must keep `DialogHeader` / `DialogFooter` structure. Entity **detail / edit** uses the Entity detail dialog pattern (compact `max-w-3xl` Dialog). All entity creation — including create dialogs and operational submissions (such as quota increase requests) — opens as a Dialog/Modal over the page (never flattened/tiled inline across the page or replacing the whole view). API Key create is a compact single-page Dialog (name, project, route, folded call boundaries). Route create remains a multi-step Dialog wizard (`sm:max-w-5xl`, stepper + main panel + summary sidebar). Overlay / Escape dismiss rules apply to both.
+5. **Dialog viewport bounds**: All popups and dialogs must never exceed screen height or width (`max-h-[85vh]` or `max-h-[90vh]` with `overflow-y-auto`). Large blocks of examples, technical tokens, or secondary options inside dialogs must use collapsible accordions (or tabs) rather than vertical unconstrained stacking that pushes action buttons or headers off-screen.
+6. Popups (Dialog / Sheet / AlertDialog / Popover) must close when the user clicks outside the popup content (overlay / dimmed area) or presses Escape; do not disable overlay dismiss without an explicit, documented exception.
+7. Operational submissions, applications, and creation actions (e.g. Quota Increase Application, Token Rotation, Model Bindings) must be triggered via dedicated action buttons opening an interactive modal dialog with validation and cancel/submit footers, leaving the main content area focused on list review, status, and audits rather than stacking flat inline input cards.
+8. Never use native browser popups (`window.confirm` / `alert` / `prompt`). Delete and other destructive confirms use `AlertDialog` / `ConfirmAlertDialog`; transient feedback uses toast.
+9. Prefer `t()` for copy; reserve wrap/truncate strategy for long IDs, keys, and model names.
+10. The canonical X-series brand asset uses `#2744A5`; brand identity, interactive primary, and semantic status colors remain separate roles.
+11. Visible keyboard focus is mandatory, and icon-only controls require an accessible name and tooltip.
+12. Entity lists and the sidebar follow quiet selection: light primary fill (`bg-primary/10`) and weight only. Do not use theme-colored left borders, vertical accent bars, near-invisible muted grays, or parallel selection dialects.
+13. Entity detail / edit dialogs follow the Entity detail dialog pattern (`ApiKeyDetailDialog` / `RouteDetailDialog`): compact overview card + optional two-column operational cards; open from `⋯` Edit by default.
+14. Master–detail browsers follow the Master–detail workspace pattern: side-by-side bordered panes on wide screens, Sheet/Dialog on narrow screens, never absolute overlay over the list.
+15. Never join organization and project names with `/` in one control, option, cell, or chip. Show organization name or project name alone; when both are required, use separate labeled fields or columns.
+16. Select / Combobox options must show only the entity display name (or other single identity). Never concatenate protocol, strategy, counts, or other metadata into option labels. Put those details outside the menu after selection.
+17. Layout stability: reserve height for post-selection details and strategy-dependent panels in create wizards and dense forms. Multi-example code switchers must use **fixed-height Tab containers** with internal scrolling rather than layout-shifting toggles. Selection/tab switching must not cause visible vertical jump or dialog resize.
+18. Shared overlays must provide dialog semantics, focus trap, initial focus, and focus restore.
+19. **No casual subtitles.** Do not add page, card, or section subtitles that restate the title or fill space. Use a subtitle only when it carries an instruction the title cannot express. Prefer no subtitle.
+
+## PR checklist
+
+1. Colors come from semantic tokens (`primary` / `destructive` / `success` / `warning` / `muted`).
+2. Buttons use shared `Button` variants; no native selects.
+3. Dialogs follow shared structure and overlay accessibility; entity detail dialogs follow the compact Entity detail dialog pattern; overlay / Escape dismiss works; no native `confirm`/`alert`; delete uses `AlertDialog`; selected rows/sidebar use `bg-primary/10` without a theme accent bar.
+4. Master–detail pages keep list and detail as independent bordered panes on wide screens and fall back to Sheet/Dialog on narrow screens.
+5. Long Chinese/English/key/model text does not overflow or obscure metrics.
+6. Table horizontal scroll stays inside the table container.
+7. Selecting routes/strategies or toggling optional sections does not jitter dialog or wizard layout (reserved slots / min-height).
+8. `npm run lint` passes.
+9. New cards and pages do not add decorative subtitles under titles.
+
+Change order when editing the visual baseline: tokens (`index.css` / Tailwind) → `components/ui/*` → pages/components → desktop + mobile screenshot regression.
+
