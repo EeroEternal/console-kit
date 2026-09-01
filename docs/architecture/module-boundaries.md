@@ -1,9 +1,9 @@
 # Module Boundaries & Crate Architecture
 
-本文档定义系统模块边界、数据流方向及跨模块交互铁律。
+This document defines module boundaries, dependency flow directions, and cross-module interaction rules.
 
-## 1. 核心铁律
+## 1. Core Principles
 
-1. **单向依赖流**：只能由上层（Server / App）依赖下层（Domain / Storage），禁止循环依赖。
-2. **禁止跨模块直接读写私有表**：所有跨模块数据交互必须通过领域提供的 Service / Repository 接口或明确的数据契约完成。
-3. **变更原子性**：破坏性接口变更必须提供向后兼容层或统一版本升级方案。
+1. **Unidirectional Dependency Flow**: Upper layers (Server / Application) may depend on lower layers (Domain / Storage), never cyclic dependencies.
+2. **No Direct Table Tampering Across Modules**: All cross-module data access must pass through Service / Repository interfaces or explicit data contracts.
+3. **Change Atomicity**: Breaking changes must provide backward compatibility or structured version migration plans.
