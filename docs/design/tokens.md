@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: the project Admin UI
-description: Unified UI design specification for the the project admin console, aligned with the admin visual guidelines and implemented semantic tokens.
+name: Admin UI
+description: Unified UI design specification for the admin console, aligned with the admin visual guidelines and implemented semantic tokens.
 colors:
   brand: "#2744A5"
   background: "#FFFFFF"
@@ -12,7 +12,8 @@ colors:
   popover-foreground: "#22222A"
   primary: "#2744A5"
   primary-foreground: "#FFFFFF"
-  primary-hover: "#1F3A8A"
+  primary-hover: "#1F3A89"
+  primary-active: "#182F70"
   primary-light: "#E8F0FF"
   secondary: "#F4F4F5"
   secondary-foreground: "#454554"
@@ -61,43 +62,46 @@ colors:
   dark-sidebar-accent-foreground: "#F2F2F2"
   dark-sidebar-border: "#2C2C30"
 typography:
-  headline-lg:
+  page-title:
     fontFamily: ui-sans-serif, system-ui, sans-serif
-    fontSize: 30px
-    fontWeight: 700
-    lineHeight: 1.2
-    letterSpacing: -0.02em
-  headline-md:
-    fontFamily: ui-sans-serif, system-ui, sans-serif
-    fontSize: 24px
+    fontSize: 20px
     fontWeight: 600
-    lineHeight: 1.25
-    letterSpacing: -0.02em
-  title-md:
-    fontFamily: ui-sans-serif, system-ui, sans-serif
-    fontSize: 18px
-    fontWeight: 600
-    lineHeight: 1.35
-  body-md:
+    lineHeight: 28px
+  section-title:
     fontFamily: ui-sans-serif, system-ui, sans-serif
     fontSize: 16px
-    fontWeight: 400
-    lineHeight: 1.6
+    fontWeight: 600
+    lineHeight: 24px
+  table-header:
+    fontFamily: ui-sans-serif, system-ui, sans-serif
+    fontSize: 14px
+    fontWeight: 500
+    lineHeight: 20px
   body-sm:
     fontFamily: ui-sans-serif, system-ui, sans-serif
     fontSize: 14px
     fontWeight: 400
-    lineHeight: 1.5
+    lineHeight: 20px
   label-md:
     fontFamily: ui-sans-serif, system-ui, sans-serif
     fontSize: 14px
     fontWeight: 500
-    lineHeight: 1.4
+    lineHeight: 20px
   label-sm:
     fontFamily: ui-sans-serif, system-ui, sans-serif
     fontSize: 12px
     fontWeight: 500
-    lineHeight: 1.35
+    lineHeight: 20px
+  secondary:
+    fontFamily: ui-sans-serif, system-ui, sans-serif
+    fontSize: 12px
+    fontWeight: 400
+    lineHeight: 16px
+  metric:
+    fontFamily: ui-sans-serif, system-ui, sans-serif
+    fontSize: 20px
+    fontWeight: 600
+    lineHeight: 28px
   mono-sm:
     fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 12px
@@ -112,42 +116,60 @@ rounded:
 spacing:
   xs: 4px
   sm: 8px
+  inner: 12px
   md: 16px
   lg: 24px
   xl: 32px
+  2xl: 40px
+  3xl: 48px
   page-padding: 32px
   content-gap: 24px
   card-gap: 16px
   table-min-width: 760px
+shell:
+  sidebar-expanded: 256px
+  sidebar-collapsed: 48px
+  topbar: 56px
+  menu-row: 32px
 components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.primary-foreground}"
-    rounded: "{rounded.lg}"
-    padding: "{spacing.md}"
+    rounded: "{rounded.md}"
+    padding: 12px 8px
     height: 40px
     typography: "{typography.label-md}"
   button-secondary:
-    backgroundColor: "{colors.secondary}"
-    textColor: "{colors.secondary-foreground}"
-    rounded: "{rounded.lg}"
-    padding: "{spacing.md}"
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.foreground}"
+    rounded: "{rounded.md}"
+    padding: 12px 8px
     height: 40px
     typography: "{typography.label-md}"
   button-destructive:
     backgroundColor: "{colors.destructive}"
     textColor: "{colors.destructive-foreground}"
-    rounded: "{rounded.lg}"
-    padding: "{spacing.md}"
+    rounded: "{rounded.md}"
+    padding: 12px 8px
     height: 40px
     typography: "{typography.label-md}"
   input-default:
     backgroundColor: "{colors.background}"
     textColor: "{colors.foreground}"
-    rounded: "{rounded.lg}"
+    rounded: "{rounded.sm}"
     padding: 12px
     height: 40px
     typography: "{typography.body-sm}"
+  select-default:
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.foreground}"
+    rounded: "{rounded.lg}"
+    height: 32px
+    typography: "{typography.body-sm}"
+  switch-default:
+    track: 36px 20px
+    thumb: 16px
+    rounded: 10px
   card-default:
     backgroundColor: "{colors.card}"
     textColor: "{colors.card-foreground}"
@@ -181,6 +203,8 @@ components:
 
 # Design tokens
 
-Canonical semantic token table for Admin UI. Product code should consume these names via CSS/Tailwind, not hard-coded hex in pages.
+Canonical semantic token table for Admin UI (enterprise visual spec v1.0). Product code should consume these names via CSS/Tailwind, not hard-coded hex in pages.
 
-Narrative color usage rules: see [colors.md](colors.md).
+Narrative: [colors.md](colors.md) · [typography.md](typography.md) · [layout.md](layout.md) · [components.md](components.md).
+
+Alpha: primary/success/destructive at 10% fill, 15% status hover, 20% focus ring. Quiet selection is `bg-primary/10`.

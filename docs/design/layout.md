@@ -2,6 +2,44 @@
 
 The layout system is built around a shared shell and consistent left-edge alignment. Page framing is structural, not decorative.
 
+## Shell (visual spec v1.0)
+
+Fixed **sidebar + top bar + fluid work area**. Design canvas 1920px; content width is not capped to a board size.
+
+| Part | Size |
+| --- | --- |
+| Sidebar expanded | 256px (`--sidebar-width: 16rem`) |
+| Sidebar collapsed | 48px |
+| Top bar | 56px (`h-14`) |
+| Menu row | 32px tall, 8px pad, 12px icon gap, 6px radius, 14/20 type |
+| Page padding | 32px sides; 32–40px top; ≥32px bottom |
+| Module gap | 24px |
+| Card gap | 16px |
+| Control gaps | 8 / 12 / 16 |
+
+Spacing scale (4px base): **4, 8, 12, 16, 24, 32, 40, 48**. Prefer this ladder; do not invent 10px / 18px.
+
+12-column grid; gutters 16px or 24px.
+
+**Top bar does not carry business actions.** Left: sidebar trigger. Right: theme, language, org/project, notifications, user. Page primary actions stay in `PageHeader`.
+
+Sidebar entries: `admin/src/lib/nav.ts` (or product equivalent). Do not invent a second menu.
+
+## Page types
+
+Pick one. Same tokens; different structure.
+
+| Type | Structure | Use |
+| --- | --- | --- |
+| 数据看板型 | KPI cards → multi-column modules | Dashboard, analytics |
+| 单栏表格型 | Filter/search → full-width table | Lists, batch ops |
+| 列表+详情型 | List + detail pane | Object browse |
+| 双栏目录型 | Directory + large content | Catalogs |
+| 工作台型 | History/nav + working pane | Chat, continuous tasks |
+| 混合信息型 | KPI → main module → auxiliaries | Health, billing |
+
+A content page is: title + page actions → optional filter row → optional KPI row → main → optional auxiliary. Do not put filters in the top bar or next to the title.
+
 - Pages use a common composition equivalent to `PageShell`, `PageHeader`, and `PageContainer`.
 - The page title and the primary content block must share the same left boundary.
 - Page headers belong inside the same content container as the page body, not floated into the global `SiteHeader` / banner.

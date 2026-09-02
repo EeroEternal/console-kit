@@ -23,7 +23,8 @@ If editing the design system itself, open only the chapters you change (plus Har
 | Colors, dark mode, badges, status, brand narrative | `docs/design/colors.md` |
 | Token table / hex values | `docs/design/tokens.md` |
 | Page title, subtitle, density, i18n wrap | `docs/design/typography.md`, `docs/design/layout.md` (no casual subtitles) |
-| Page shell, cards, dashboard heights, filters toolbar | `docs/design/layout.md` |
+| Page shell, sidebar/topbar, page types, dashboard heights, filters | `docs/design/layout.md` |
+| Button / Input / Select / Switch / Tabs sizes and states | `docs/design/components.md` + `docs/design/tokens.md` |
 | Wizard / Select / expand causes jump | `docs/design/layout.md` (Layout stability) |
 | Shadows, selected-row depth, radius | `docs/design/surfaces.md` |
 | New list page, row actions, create entry | `docs/design/components.md` (Entity list pattern) + `docs/ai/agents/ui-entry.md` (列表排序与检索) |

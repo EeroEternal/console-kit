@@ -10,6 +10,29 @@ The palette is semantic first. Product code should consume `primary`, `secondary
 - `info` communicates processing and neutral operational information, `inactive` communicates stopped or offline states, and `experimental` is reserved for beta or AI-assisted capabilities.
 - Dark mode uses the parallel `dark-*` token set and should preserve the same hierarchy rather than inventing a new palette.
 
+The enterprise spec defines the palette as **semantic swatches + alpha**, not a 50–900 ramp. Hex lives in [`tokens.md`](tokens.md); pages use token names and `/10` `/15` `/20`.
+
+| Token | Role |
+| --- | --- |
+| Primary `#2744A5` | Buttons, selected fill, brand emphasis |
+| Text / Primary `#22222A` | Titles, body |
+| Text / Secondary `#71717A` | Descriptions, meta |
+| Background / Card `#FFFFFF` | Page and card surfaces |
+| Muted `#F4F4F5` | Content well, sidebar |
+| Border `#E4E4E7` | Borders, inputs, dividers |
+| Success `#21C45D` | Healthy / enabled |
+| Destructive `#EF4343` | Error / danger / delete |
+
+Alpha (light mode):
+
+| Color | 10% | 15% | 20% |
+| --- | --- | --- | --- |
+| Primary | Selected fill, menu active (`bg-primary/10`) | — | Focus ring |
+| Success | Badge fill | Hover | Focus ring |
+| Destructive | Badge fill | — | Focus ring |
+
+DevTools-measured hover hex on a live page (for example secondary border `#D9D9D9`, switch-on `#254AC5`) is **not** a new token. Follow the semantic names above.
+
 Usage rules:
 
 - Do not introduce page-level hex colors, `bg-violet-*`, `bg-gray-*`, or `text-red-*` in product screens.

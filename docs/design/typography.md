@@ -7,15 +7,26 @@ Typography is system-based and utilitarian. The admin UI should favor clarity an
 - Technical identifiers such as API keys, model slugs, request IDs, and command samples use the mono stack.
 - Small metadata should reduce size, not contrast. `muted-foreground` carries secondary information.
 
-Text hierarchy guidance:
+Text hierarchy (visual spec v1.0). Build rank with **weight, color, and spacing** — do not add extra sizes.
 
-- Page titles: compact single-line `text-xl` / semibold inside `PageHeader` (not `headline-lg`)
-- Card titles: `title-md` / `font-semibold`; do not pair them with a default subtitle
-- Explanatory copy: `body-sm` — use in empty states, dialogs, and error text; **not** as a subtitle under a page or card title
-- Do not add a subtitle that repeats the title in different words (for example title「API 密钥」plus「仅显示属于该用户的密钥」)
-- UI labels and compact badges: `label-md` or `label-sm`
-- Keys, tokens, and code samples: `mono-sm`
-- Live metrics and changing numeric values use tabular numbers to avoid layout jitter.
+| Role | Size / line | Weight | Use |
+| --- | --- | --- | --- |
+| Page title | 20 / 28 (`text-xl`) | 600 | `PageHeader` only |
+| Section title | 16 / 24 | 600 | Card / module title |
+| Table header | 14 / 20 | 500 | Column labels |
+| Body | 14 / 20 | 400 | Table cells, prose |
+| Sidebar menu | 14 / 20 | 400 / 500 | Nav items |
+| Label | 12 / 20 | 500 | KPI labels, field labels |
+| Secondary | 12 / 16–20 | 400 | Hints, timestamps |
+| Metric | 20 | 600 | KPI numbers (`tabular-nums`) |
+
+Weights in product UI: **400 / 500 / 600** only. Do not use 30px / 24px marketing headlines on admin pages.
+
+- Do not pair titles with a default subtitle.
+- Explanatory copy is body/secondary — in empty states, dialogs, or errors, **not** under a page or card title.
+- Do not add a subtitle that repeats the title in different words (for example title「API 密钥」plus「仅显示属于该用户的密钥」).
+- Keys, tokens, and code samples: `mono-sm`.
+- Live metrics use tabular numbers to avoid layout jitter.
 
 Long text handling is part of typography, not an afterthought:
 

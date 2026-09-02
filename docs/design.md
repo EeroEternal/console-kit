@@ -15,6 +15,13 @@ The intended tone is pragmatic and high-signal:
 - readable in both English and Chinese without layout breakage
 - accessible enough that focus, state, and destructive actions are always unambiguous
 
+Composition (from the enterprise visual spec v1.0):
+
+- Palette is **semantic color + alpha** (10% selected fill, 15% status hover, 20% focus ring). Do not invent a 50–900 ramp.
+- Chrome is fixed sidebar (256px / 48px) + top bar (56px) + fluid work area. The top bar holds collapse, theme, language, org, notifications, user — **not** business actions. Those belong in `PageHeader`.
+- **One primary button per view.** Secondary / ghost for the rest.
+- Pick one of the six page types below. Do not invent a seventh chrome.
+
 ## How agents use this file
 
 Inside the repo, this file is **judgment**, not a CSS dump. Three layers:
@@ -29,13 +36,15 @@ Do not collapse chapters into one mega-prompt. Load this entry, then **only** th
 
 **Reader jobs** (same visual language, different structure — do not force one template):
 
-| Job | Page shape |
-| --- | --- |
-| Scan and act | Entity list + toolbar; create opens a Dialog over the list |
-| Inspect one entity | Compact Entity detail dialog |
-| Complete a valid object | Create Dialog / multi-step wizard |
-| Glance then drill | Dashboard cards with reserved heights |
-| Change global config | Settings page only |
+| Job | Page type (visual spec) | Shape |
+| --- | --- | --- |
+| Scan and act | 单栏表格型 | Filter/search → full-width table; create opens a Dialog over the list |
+| Inspect while scanning | 列表+详情型 | Master–detail workspace |
+| Browse a catalog | 双栏目录型 | Directory list + large content pane |
+| Operate continuously | 工作台型 | History/nav + working pane |
+| Glance then drill | 数据看板型 / 混合信息型 | KPI row → main module → optional auxiliaries; reserved card heights |
+| Complete a valid object | Dialog / wizard | Create Dialog or multi-step wizard |
+| Change global config | Settings | Settings page only |
 
 New rules enter this file only when a failure **repeats** (promote-lesson: ≥ 2 sessions) or a deterministic check can catch it.
 
@@ -53,7 +62,7 @@ Always load this file (Overview + Hard rules + PR checklist below). Then open **
 | List / master–detail / detail dialog / wizard | [`design/components.md`](design/components.md) (+ layout stability when needed) |
 | Shadows, radius | [`design/surfaces.md`](design/surfaces.md) |
 | Quick anti-patterns | [`design/dos-donts.md`](design/dos-donts.md) |
-| Enterprise Visual Spec & Tokens | [`../DESIGN.md`](../DESIGN.md) + [`design/visual-specification.pdf`](design/visual-specification.pdf) |
+| Enterprise visual spec (source PDF) | [`design/visual-specification.pdf`](design/visual-specification.pdf) → tokens / layout / typography / components |
 | Editing the visual baseline | touched chapter(s) + Hard rules / PR checklist; token table in `design/tokens.md` |
 
 ## Scope
@@ -66,7 +75,7 @@ Third-party internals and code-highlight themes are out of scope for wrapper-con
 0. **Stack lock.** Product UI is `admin/` (React + `admin/src/components/ui`, tokens in `admin/src/index.css`). **Never** add a parallel page as raw `index.html` + inline CSS/JS, a second Vite/Next app, or CDN Bootstrap/Tailwind Play. This skeleton **ships that kit**. Extend it; do not replace it. Vercel-style standalone HTML is for *out-of-repo* artifacts with a public stylesheet — not for this codebase. Mechanical gate: `scripts/check_ui_stack.sh`.
 1. No hard-coded page colors (`#hex`, `bg-violet-*`, `text-red-*`, `bg-gray-*`) in product pages.
 2. No native `<select>`; use the shared `Select` component.
-3. Do not invent a second primary button color system.
+3. Do not invent a second primary button color. **One primary button per view.**
 4. Dialogs must keep `DialogHeader` / `DialogFooter` structure. Entity **detail / edit** uses the Entity detail dialog pattern (compact `max-w-3xl` Dialog). All entity creation — including create dialogs and operational submissions (such as quota increase requests) — opens as a Dialog/Modal over the page (never flattened/tiled inline across the page or replacing the whole view). API Key create is a compact single-page Dialog (name, project, route, folded call boundaries). Route create remains a multi-step Dialog wizard (`sm:max-w-5xl`, stepper + main panel + summary sidebar). Overlay / Escape dismiss rules apply to both.
 5. **Dialog viewport bounds**: All popups and dialogs must never exceed screen height or width (`max-h-[85vh]` or `max-h-[90vh]` with `overflow-y-auto`). Large blocks of examples, technical tokens, or secondary options inside dialogs must use collapsible accordions (or tabs) rather than vertical unconstrained stacking that pushes action buttons or headers off-screen.
 6. Popups (Dialog / Sheet / AlertDialog / Popover) must close when the user clicks outside the popup content (overlay / dimmed area) or presses Escape; do not disable overlay dismiss without an explicit, documented exception.
@@ -88,7 +97,7 @@ Third-party internals and code-highlight themes are out of scope for wrapper-con
 
 0. No new standalone HTML/JS document; UI lives in the product kit.
 1. Colors come from semantic tokens (`primary` / `destructive` / `success` / `warning` / `muted`).
-2. Buttons use shared `Button` variants; no native selects.
+2. Buttons use shared `Button` variants; **one primary per view**; no native selects; business actions are in `PageHeader`, not the top bar.
 3. Dialogs follow shared structure and overlay accessibility; entity detail dialogs follow the compact Entity detail dialog pattern; overlay / Escape dismiss works; no native `confirm`/`alert`; delete uses `AlertDialog`; selected rows/sidebar use `bg-primary/10` without a theme accent bar.
 4. Master–detail pages keep list and detail as independent bordered panes on wide screens and fall back to Sheet/Dialog on narrow screens.
 5. Long Chinese/English/key/model text does not overflow or obscure metrics.

@@ -11,6 +11,13 @@ Components follow semantic roles before custom styling. Reuse baseline UI primit
 - API Key create and Route create are separate flows. Creating an API Key only binds an **existing** route (name + project + route select). Do not embed “create dedicated route”, strategy/provider pickers, or smart-routing setup inside the API Key wizard. Create routes on the Routes page; create keys on the API Keys page.
 - Toasts: transient feedback should use the shared top-center toast pattern instead of a blocking modal. Success feedback uses the solid `success` green surface with `success-foreground` text, keeps copy short, and disappears without interrupting the current workflow.
 - Inputs, selects, and switches: favor the shared component set instead of raw HTML controls. Native `select` should not appear in product pages.
+- **One primary button per view.** Height 40px, radius 6px, pad 12×8. Hover darkens primary (`#1F3A89`); active `#182F70`; disabled 50% opacity; keyboard focus is a 2px primary ring.
+- Secondary button: white fill, 1px border, hover `muted`. Icon button: 28×28, 16px icon, transparent until hover.
+- Form `Input`: 40px, radius 4px, 1px border. Focus = primary border + 2px ring. Error = destructive border. Disabled = muted fill.
+- Toolbar `Select` / date trigger: 32px, radius 8px. Panel max-height 240px (select) / 384px (date), scroll inside. Show 3–5 options when possible.
+- Top-bar search (if present): 32px, radius 8px, muted fill until focus. Dropdown 320×360 max.
+- `Switch`: track 36×20, thumb 16, radius 10px, 150ms ease. On = primary track, not a new blue.
+- `Tabs`: sibling content switch under the page title (2–8 items). Active = primary text + 2px primary underline. **Not** hierarchy navigation. No icon+label mix. Single selection.
 - Select / Combobox option labels show **only the entity identity** (usually the display name). Do not pack protocol, strategy, bound-key counts, status, or other secondary fields into the option string with `·` / `/`. After the user picks a value, secondary facts may appear in a separate summary row, labeled fields, or the detail dialog — never inside the dropdown options themselves. Canonical good examples: API Key detail route select and `ApiKeyRouteSummary` (`label: item.name`).
 - Badges: reserve for status and compact metadata; they must support longer text when localization expands labels.
 - Tables: selected state belongs to `bg-primary/10` and medium-weight text. Do not use a theme-colored left border as a selection indicator.
