@@ -17,6 +17,7 @@
     --primary: 226 62% 40%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 225 63% 33%;
+    --primary-active: 224 65% 27%;
     --primary-light: 224 100% 96%;
     --primary-dark: 225 63% 33%;
 
@@ -103,6 +104,7 @@
     --primary: 226 100% 77%;
     --primary-foreground: 222 47% 11%;
     --primary-hover: 226 100% 83%;
+    --primary-active: 226 100% 70%;
     --primary-light: 225 45% 18%;
     --primary-dark: 226 100% 70%;
 

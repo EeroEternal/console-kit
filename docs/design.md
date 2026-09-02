@@ -62,7 +62,6 @@ Always load this file (Overview + Hard rules + PR checklist below). Then open **
 | List / master–detail / detail dialog / wizard | [`design/components.md`](design/components.md) (+ layout stability when needed) |
 | Shadows, radius | [`design/surfaces.md`](design/surfaces.md) |
 | Quick anti-patterns | [`design/dos-donts.md`](design/dos-donts.md) |
-| Enterprise visual spec (source PDF) | [`design/visual-specification.pdf`](design/visual-specification.pdf) → tokens / layout / typography / components |
 | Editing the visual baseline | touched chapter(s) + Hard rules / PR checklist; token table in `design/tokens.md` |
 
 ## Scope

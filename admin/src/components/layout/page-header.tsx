@@ -11,7 +11,7 @@ export function PageHeader({ title, action, className }: PageHeaderProps) {
   return (
     <div className={cn("mx-auto mb-4 flex w-full max-w-[1400px] items-center justify-between gap-3", className)}>
       {title ? (
-        <h1 className="min-w-0 break-words text-xl font-semibold tracking-tight text-foreground">
+        <h1 className="min-w-0 break-words text-page-title tracking-tight text-foreground">
           {title}
         </h1>
       ) : (

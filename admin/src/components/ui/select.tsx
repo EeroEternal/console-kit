@@ -67,7 +67,7 @@ const Select = ({
         <SelectPrimitive.Trigger
           id={id}
           className={cn(
-            "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-8 w-full items-center justify-between rounded-lg border border-input bg-background px-3 text-sm ring-offset-background hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
             triggerClassName
           )}
         >
@@ -87,9 +87,9 @@ const Select = ({
         <SelectPrimitive.Content
           side={menuSide}
           position="popper"
-          className="z-[150] min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md border bg-popover shadow-md"
+          className="z-[150] max-h-[240px] min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border bg-popover shadow-md"
         >
-          <SelectPrimitive.Viewport className="max-h-60 p-1">
+          <SelectPrimitive.Viewport className="max-h-[240px] p-2">
             {options.length === 0 ? (
               <div className="px-2 py-2 text-sm text-muted-foreground">
                 {emptyText || t("common.empty")}
@@ -106,7 +106,7 @@ const Select = ({
                     <SelectPrimitive.Item
                       key={option.value}
                       value={option.value}
-                      className="relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
+                      className="relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-muted focus:bg-muted focus:text-foreground"
                     >
                       <SelectPrimitive.ItemText>
                         <span className="block whitespace-nowrap">{option.label}</span>
