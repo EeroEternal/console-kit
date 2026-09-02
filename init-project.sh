@@ -13,7 +13,7 @@ PROJECT_NAME="$(basename "$TARGET_DIR")"
 CRATE_NAME="${PROJECT_NAME//-/_}"
 
 echo "=========================================="
-echo "Initializing new Rust Agentic Project: $PROJECT_NAME"
+echo "Initializing new project from console-kit: $PROJECT_NAME"
 echo "Target Directory: $TARGET_DIR"
 echo "=========================================="
 
@@ -29,18 +29,18 @@ fi
 
 mkdir -p "$TARGET_DIR"
 
-# Copy essential agentic skeleton files (excluding git history and target build artifacts)
+# Copy console-kit (excluding git history and target build artifacts)
 rsync -av --exclude='.git' --exclude='target' --exclude='init-project.sh' ./ "$TARGET_DIR/"
 
 cd "$TARGET_DIR"
 
 # Replace project names in Cargo.toml and files
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed -i '' "s/name = \"rust-agentic-skeleton\"/name = \"$PROJECT_NAME\"/g" Cargo.toml
-    sed -i '' "s/rust_agentic_skeleton/$CRATE_NAME/g" src/main.rs tests/server_test.rs 2>/dev/null || true
+    sed -i '' "s/name = \"console-kit\"/name = \"$PROJECT_NAME\"/g" Cargo.toml
+    sed -i '' "s/console_kit/$CRATE_NAME/g" src/main.rs tests/server_test.rs 2>/dev/null || true
 else
-    sed -i "s/name = \"rust-agentic-skeleton\"/name = \"$PROJECT_NAME\"/g" Cargo.toml
-    sed -i "s/rust_agentic_skeleton/$CRATE_NAME/g" src/main.rs tests/server_test.rs 2>/dev/null || true
+    sed -i "s/name = \"console-kit\"/name = \"$PROJECT_NAME\"/g" Cargo.toml
+    sed -i "s/console_kit/$CRATE_NAME/g" src/main.rs tests/server_test.rs 2>/dev/null || true
 fi
 
 # Initialize fresh git repository if not already initialized
@@ -55,7 +55,7 @@ echo "Copied three layers:"
 echo "  kit (required): admin/src/components/ui + layout + common + index.css + docs/design"
 echo "  examples (optional): admin/src/pages + lib/nav.ts"
 echo "  backend: src/ + tests/"
-echo "Upgrade kit later with:  <skeleton>/scripts/sync-admin-kit.sh $TARGET_DIR"
+echo "Upgrade kit later with:  <console-kit>/scripts/sync-admin-kit.sh $TARGET_DIR"
 echo "Next steps:"
 echo "  1. cd $TARGET_DIR"
 echo "  2. cargo check --tests"

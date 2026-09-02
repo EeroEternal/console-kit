@@ -1,4 +1,4 @@
-use rust_agentic_skeleton::{config::Config, error::Result, server};
+use console_kit::{config::Config, error::Result, server};
 use tracing::info;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 

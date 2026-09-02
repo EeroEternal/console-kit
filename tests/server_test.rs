@@ -3,7 +3,7 @@ use axum::{
     http::{Request, StatusCode},
 };
 use http_body_util::BodyExt;
-use rust_agentic_skeleton::server::create_router;
+use console_kit::server::create_router;
 use tower::ServiceExt;
 
 #[tokio::test]
@@ -26,5 +26,5 @@ async fn test_health_check() {
     let json: serde_json::Value = serde_json::from_slice(&body).unwrap();
 
     assert_eq!(json["status"], "ok");
-    assert_eq!(json["service"], "rust-agentic-skeleton");
+    assert_eq!(json["service"], "console-kit");
 }

@@ -1,8 +1,6 @@
-# Rust Agentic Skeleton
+# console-kit
 
-An industrial-grade standard architecture skeleton and AI agent collaboration system for Rust projects.
-
-This repository provides a clean, robust foundation for high-performance backend services, a complete enterprise visual design specification for operator consoles, and self-regulating AI agent workflows.
+Copy-in Admin console kit and agent constraints for Rust operator consoles. Not an npm component library: products copy `admin/` + `docs/design.md` into their tree so agents bind to real files.
 
 ---
 
@@ -10,7 +8,7 @@ This repository provides a clean, robust foundation for high-performance backend
 
 - **Multi-Tier AI Agent Collaboration**: Lightweight `AGENTS.md` system entry (<80 lines / 1200 tokens budget) with zero-sum updates to eliminate hallucinations and piggybacking.
 - **Token-Efficient Skills System**: Domain workflows, local quality gates, and safety procedures separated into `.agents/skills/` (read on demand).
-- **Enterprise Visual Design Specification**: `docs/design/` is **judgment** (reader jobs, named anti-patterns). It only binds if a React kit exists (`admin/` or `frontend/`). This skeleton ships **backend only** — UI tasks must scaffold the kit first (`scripts/check_ui_stack.sh` fail-closes Greenfield HTML).
+- **Enterprise Visual Design Specification**: `docs/design/` is **judgment**. Vocabulary is `admin/src/components/ui` + `index.css`. `scripts/check_ui_stack.sh` fail-closes Greenfield HTML.
 - **Modern Rust 2024 Backend**: High-performance Axum 0.8 + Tokio + Sqlx + Tracing + Tower baseline with verified health checks.
 - **1-Click Project Replication**: Automated scaffolding script (`init-project.sh`) for new projects and effortless injection into existing ones.
 
@@ -24,7 +22,7 @@ Run the scaffolding script with your target directory:
 
 ```bash
 # 1. Initialize your new project (copies files, updates crate names, inits fresh git)
-/path/to/rust-agentic-sekleton/init-project.sh ../my-new-project
+/path/to/console-kit/init-project.sh ../my-new-project
 
 # 2. Enter the new project
 cd ../my-new-project
@@ -41,22 +39,22 @@ If you already have an existing project and want to adopt the AI agent collabora
 
 ```bash
 # From your existing project root directory:
-SKELETON_DIR="/path/to/rust-agentic-sekleton"
+KIT_DIR="/path/to/console-kit"
 
 # 1. Copy agent standing rules and engineering guidelines
-cp "$SKELETON_DIR/AGENTS.md" ./
+cp "$KIT_DIR/AGENTS.md" ./
 mkdir -p docs/ai/agents docs/architecture docs/design .agents/skills
-cp -r "$SKELETON_DIR/docs/ai/agents/" docs/ai/agents/
-cp "$SKELETON_DIR/docs/architecture.md" docs/
-cp "$SKELETON_DIR/docs/architecture/module-boundaries.md" docs/architecture/
+cp -r "$KIT_DIR/docs/ai/agents/" docs/ai/agents/
+cp "$KIT_DIR/docs/architecture.md" docs/
+cp "$KIT_DIR/docs/architecture/module-boundaries.md" docs/architecture/
 
 # 2. Copy the complete Visual Design Specification
-cp "$SKELETON_DIR/docs/design.md" docs/
-cp -r "$SKELETON_DIR/docs/design/" docs/design/
+cp "$KIT_DIR/docs/design.md" docs/
+cp -r "$KIT_DIR/docs/design/" docs/design/
 
 # 3. Copy standard agent skills and CI workflow
-cp -r "$SKELETON_DIR/.agents/skills/" .agents/skills/
-mkdir -p .github/workflows && cp "$SKELETON_DIR/.github/workflows/ci.yml" .github/workflows/
+cp -r "$KIT_DIR/.agents/skills/" .agents/skills/
+mkdir -p .github/workflows && cp "$KIT_DIR/.github/workflows/ci.yml" .github/workflows/
 ```
 
 **Post-adoption adjustments (2 minutes):**

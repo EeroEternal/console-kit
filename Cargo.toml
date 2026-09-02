@@ -1,9 +1,9 @@
 [package]
-name = "rust-agentic-skeleton"
+name = "console-kit"
 version = "0.1.0"
 edition = "2024"
 authors = ["Development Team"]
-description = "Industrial-grade Rust AI agentic application & gateway skeleton"
+description = "Copy-in Admin console kit and agent constraints for Rust operator consoles"
 
 [dependencies]
 tokio = { version = "1.43", features = ["full"] }

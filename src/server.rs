@@ -14,7 +14,7 @@ pub fn create_router() -> Router {
 async fn health_check() -> Json<Value> {
     Json(json!({
         "status": "ok",
-        "service": "rust-agentic-skeleton"
+        "service": "console-kit"
     }))
 }
 
