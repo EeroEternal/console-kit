@@ -8,7 +8,7 @@ interface PageShellProps {
 
 export function PageShell({ children, className }: PageShellProps) {
   return (
-    <div className={cn("page-transition scrollbar-hide flex min-h-0 flex-1 flex-col p-4 sm:p-6 2xl:p-8", className)}>
+    <div className={cn("page-transition scrollbar-hide flex min-h-0 flex-1 flex-col p-6 xl:p-8", className)}>
       {children}
     </div>
   )

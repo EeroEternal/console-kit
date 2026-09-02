@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react"
-import { LayoutDashboard, Settings } from "lucide-react"
+import { LayoutDashboard, List, FolderTree, MessageSquare, Settings } from "lucide-react"
 
 export type NavItem = {
   name: string
@@ -22,6 +22,15 @@ export const NAV_SECTIONS: NavSection[] = [
     id: "overview",
     title: "Overview",
     items: [{ name: "Dashboard", href: "/", icon: LayoutDashboard }],
+  },
+  {
+    id: "operate",
+    title: "Operate",
+    items: [
+      { name: "List", href: "/list", icon: List },
+      { name: "Catalog", href: "/catalog", icon: FolderTree },
+      { name: "Workbench", href: "/workbench", icon: MessageSquare },
+    ],
   },
   {
     id: "system",
