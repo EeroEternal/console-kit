@@ -7,11 +7,11 @@ This is the **vocabulary** `docs/design.md` binds to. Agents must implement prod
 Sidebar entries live in `src/lib/nav.ts`. Add a page = add a nav item + `pages/*.tsx` + a route in `App.tsx`. Do not invent a second menu.
 
 Example reader jobs (replace mock data):
-- Dashboard: `StatCard` KPI row
+- Dashboard: `StatCard` + `InsightPanel` (title only) + `MetricTile`
 - List: `EntityListToolbar` + table, quiet selection `bg-primary/10`
 - Catalog: `TwoPanelLayout` + `DetailPanel`
 - Workbench: history + working pane
-- Settings: global config only
+- Settings: `SectionCard` on this page only; no casual subtitle
 
 ```bash
 cd admin && npm install && npm run dev
