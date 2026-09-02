@@ -18,7 +18,7 @@ This document serves as the **high-density, lightweight entry point (attention s
 
 | Task Signal | Required Reading |
 | --- | --- |
-| Admin UI / visible styling / components / i18n copy | skill [`admin-ui-change`](.agents/skills/admin-ui-change/SKILL.md) → [`docs/design.md`](docs/design.md); details in [`ui-entry.md`](docs/ai/agents/ui-entry.md) |
+| Any visible page / report / landing / HTML / Admin UI | skill [`admin-ui-change`](.agents/skills/admin-ui-change/SKILL.md) → [`docs/design.md`](docs/design.md); details in [`ui-entry.md`](docs/ai/agents/ui-entry.md) |
 | Admin domain modules / API contract tiering | skill [`admin-domain-resource`](.agents/skills/admin-domain-resource/SKILL.md) |
 | `git stash` operations | skill [`git-stash-safe`](.agents/skills/git-stash-safe/SKILL.md) |
 | Adding SQL migrations (`migrations/NNN_*.sql`) | skill [`add-sql-migration`](.agents/skills/add-sql-migration/SKILL.md) |

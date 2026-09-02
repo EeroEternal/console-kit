@@ -5,5 +5,5 @@ export function t(key: string, fallback?: string): string {
 }
 
 export function useI18n() {
-  return { language: "en" as const, setLanguage: (_lang: string) => {} }
+  return { language: "en" as const, setLanguage: () => {} }
 }

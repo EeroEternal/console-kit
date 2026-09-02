@@ -32,3 +32,25 @@ jobs:
 
       - name: Run Tests
         run: cargo test --workspace
+
+  admin-gate:
+    name: Admin UI Gate (tsc, lint, kit checks)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: admin/package-lock.json
+      - run: npm ci
+      - run: npx tsc -b --noEmit
+      - run: npm run lint
+      - name: UI stack and nav checks
+        working-directory: ${{ github.workspace }}
+        run: |
+          bash scripts/check_ui_stack.sh
+          bash scripts/check_admin_nav.sh

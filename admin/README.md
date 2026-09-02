@@ -13,6 +13,10 @@ Example reader jobs (replace mock data):
 - Workbench: history + working pane
 - Settings: `SectionCard` on this page only; no casual subtitle
 
+Kit copy list: [`KIT.md`](KIT.md). Upgrade another repo with `scripts/sync-admin-kit.sh`.
+
 ```bash
 cd admin && npm install && npm run dev
+npm run lint
+bash ../scripts/check_ui_stack.sh && bash ../scripts/check_admin_nav.sh
 ```

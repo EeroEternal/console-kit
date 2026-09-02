@@ -17,7 +17,9 @@ description: Push 前必须在本地跑满与 CI 等效的门禁(Rust fmt/clippy
 cargo fmt --check
 cargo clippy --all-targets -- -D warnings
 cargo test --workspace
-bash scripts/check_ui_stack.sh   # if the product has or claims a UI
+bash scripts/check_ui_stack.sh
+bash scripts/check_admin_nav.sh
+(cd admin && npx tsc -b --noEmit && npm run lint)
 ```
 
 UI 规范改动需确保符合 `docs/design.md`；发版与打 Tag 前，转入 skill

@@ -1,6 +1,6 @@
 ---
 name: admin-ui-change
-description: Change xrouter Admin UI with progressive reading of docs/design.md chapters. Use for admin pages, components, dialogs, wizards, lists, master-detail, selection styling, settings IA, tokens, or any user-visible admin UI work. Never load every design chapter unless editing the whole system.
+description: Any user-visible page (Admin, report, landing, HTML, dialog, list, dashboard, settings, i18n). Load docs/design.md progressively. Never invent index.html. Never load every design chapter unless editing the whole system.
 ---
 
 # Admin UI change (progressive design docs)
@@ -41,7 +41,7 @@ Any user-visible page (not only "Admin") loads this skill and `docs/design.md`.
 1. If `admin/src` and `frontend/src` are **both missing**: **stop**. Do not write HTML. Scaffold the React kit in a separate commit, or refuse.
 2. If a kit exists: implement there. Creating `*.html` + inline CSS is **Greenfield HTML**.
 3. Title + redundant subtitle + hero is **Marketing stack** / **Casual subtitle**.
-4. Run `bash scripts/check_ui_stack.sh` before claiming the UI is done.
+4. Run `bash scripts/check_ui_stack.sh` and `bash scripts/check_admin_nav.sh` before claiming the UI is done. New page = `pages/*.tsx` + `lib/nav.ts` href + `App.tsx` route.
 
 ## Do not invent
 If a chapter and an old page disagree, treat the page as drift unless the user asked to change the spec. Prefer shared primitives under `admin/src/components/ui/*` (or the product UI kit) and tokens in `index.css`. **Do not invent** a parallel palette or class vocabulary. Named anti-patterns: [`docs/design/dos-donts.md`](../../../docs/design/dos-donts.md).
