@@ -2,8 +2,8 @@ use axum::{
     body::Body,
     http::{Request, StatusCode},
 };
-use http_body_util::BodyExt;
 use console_kit::server::create_router;
+use http_body_util::BodyExt;
 use tower::ServiceExt;
 
 #[tokio::test]

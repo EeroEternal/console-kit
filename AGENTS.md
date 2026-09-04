@@ -25,6 +25,7 @@ This document serves as the **high-density, lightweight entry point (attention s
 | Writing design docs in `docs/` / DDL / Mermaid | skill [`verify-design-doc`](.agents/skills/verify-design-doc/SKILL.md) |
 | Release / tagging / production deployment | skill [`release`](.agents/skills/release/SKILL.md) |
 | Code review / PR audit / acceptance verification | skill [`review`](.agents/skills/review/SKILL.md) (Independent read-only context) |
+| CI pipelines / concurrency / test sharding / caching | skill [`ci-concurrency-optimization`](.agents/skills/ci-concurrency-optimization/SKILL.md) |
 | Autonomous agent loops / cron tasks | [`loop-charter.md`](docs/ai/agents/loop-charter.md) |
 | `tokio::spawn` / daemons / script modifications / exit codes | [`engineering.md`](docs/ai/agents/engineering.md) |
 | API key lifecycle / rotation / single-reveal / hash security | skill [`api-key-lifecycle-security`](.agents/skills/api-key-lifecycle-security/SKILL.md) |
@@ -58,3 +59,4 @@ Authoritative skills are located under `.agents/skills/`.
 - [`release`](.agents/skills/release/SKILL.md)
 - [`review`](.agents/skills/review/SKILL.md)
 - [`api-key-lifecycle-security`](.agents/skills/api-key-lifecycle-security/SKILL.md)
+- [`ci-concurrency-optimization`](.agents/skills/ci-concurrency-optimization/SKILL.md)
