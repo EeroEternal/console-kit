@@ -27,6 +27,7 @@ This document serves as the **high-density, lightweight entry point (attention s
 | Code review / PR audit / acceptance verification | skill [`review`](.agents/skills/review/SKILL.md) (Independent read-only context) |
 | Autonomous agent loops / cron tasks | [`loop-charter.md`](docs/ai/agents/loop-charter.md) |
 | `tokio::spawn` / daemons / script modifications / exit codes | [`engineering.md`](docs/ai/agents/engineering.md) |
+| API key lifecycle / rotation / single-reveal / hash security | skill [`api-key-lifecycle-security`](.agents/skills/api-key-lifecycle-security/SKILL.md) |
 | Commit message conventions | [`commit-style.md`](docs/ai/agents/commit-style.md) |
 | Cross-module boundaries / crate splitting / SQL joins | [`module-boundaries.md`](docs/architecture/module-boundaries.md) |
 
@@ -56,3 +57,4 @@ Authoritative skills are located under `.agents/skills/`.
 - [`pre-push-local-gates`](.agents/skills/pre-push-local-gates/SKILL.md)
 - [`release`](.agents/skills/release/SKILL.md)
 - [`review`](.agents/skills/review/SKILL.md)
+- [`api-key-lifecycle-security`](.agents/skills/api-key-lifecycle-security/SKILL.md)
