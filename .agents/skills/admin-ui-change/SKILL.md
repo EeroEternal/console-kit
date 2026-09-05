@@ -13,7 +13,7 @@ If editing the design system itself, open only the chapters you change (plus Har
 ## Always load
 1. `docs/design.md` (whole file — judgment, reader jobs, hard rules, PR checklist)
 2. `AGENTS.md` §始终生效 → UI + Admin i18n + 列表排序与检索；细则 [`docs/ai/agents/ui-entry.md`](../../../docs/ai/agents/ui-entry.md)
-3. Global settings IA: settings page is the only global-config home
+3. Global settings IA: settings page is the only global-config home; user-field vs Settings vs out-of-gateway placement is skill [`user-attributes-settings`](../user-attributes-settings/SKILL.md)
 4. Name the **reader job** (list / detail / wizard / dashboard / settings) before choosing layout
 
 ## Route by task (chapter files)
@@ -33,6 +33,7 @@ If editing the design system itself, open only the chapters you change (plus Har
 | Create wizard (API Key, Route) | `docs/design/components.md` + `docs/design/layout.md` (stability) |
 | Org/project name display | `docs/design/components.md` (naming display) |
 | Quick anti-patterns | `docs/design/dos-donts.md` |
+| Settings sections, user fields, registration / SSO / identity source | skill [`user-attributes-settings`](../user-attributes-settings/SKILL.md) |
 | Token / CSS baseline change | `docs/design/tokens.md` + `admin` `index.css` / Tailwind; then change order in PR checklist footer |
 
 ## Stack lock
