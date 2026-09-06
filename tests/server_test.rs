@@ -28,3 +28,21 @@ async fn test_health_check() {
     assert_eq!(json["status"], "ok");
     assert_eq!(json["service"], "console-kit");
 }
+
+#[tokio::test]
+async fn test_mailer_fallback() {
+    let mailer = console_kit::Mailer::log();
+    assert!(mailer.skips_email());
+    assert!(
+        mailer
+            .send_verification_code("test@example.com", "123456")
+            .await
+            .is_ok()
+    );
+    assert!(
+        mailer
+            .send_verify_email("test@example.com", "https://example.com/verify")
+            .await
+            .is_ok()
+    );
+}
