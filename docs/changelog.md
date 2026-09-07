@@ -10,6 +10,8 @@ Do not paste commit titles, `misc`, or empty sections.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-07
+
 ### Added
 
 - **Auth split login/register** (Admin `/login`, `/register`): xrouter-style full-height left branding + right form card, outside the sidebar shell. Login is email + password. Register is three steps in the same card — (1) email → send code, (2) code only, (3) password + confirm — not one tiled form. Left-panel copy is product-specific via `auth.productName` / `auth.branding*` / `auth.stat*`. Public auth routes stay out of `nav.ts`.
