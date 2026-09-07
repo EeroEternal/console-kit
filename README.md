@@ -71,7 +71,7 @@ mkdir -p .github/workflows && cp "$KIT_DIR/.github/workflows/ci.yml" .github/wor
 | **`.agents/skills/`** | **Reusable Workflows (Token Relief Valve)**:<br>• `pre-push-local-gates`: Full local verification before push<br>• `review`: Read-only critic review process<br>• `promote-lesson`: Rigorous lesson extraction & promotion<br>• `git-stash-safe`: Safe stash without dropping lockfiles<br>• `release`: Multi-touchpoint release promoter with hard approval stop<br>• `add-sql-migration`: Embedded Sqlx migration standards<br>• `admin-ui-change`: On-demand guidance for UI work<br>• `admin-domain-resource`: 4-tier domain abstraction | All Projects |
 | **`docs/design.md`**<br>`docs/design/*` | **Visual Design Specification**: Complete UI baseline including 19 hard rules, semantic HSL tokens (`tokens.md`), layout stability (`layout.md`), quiet selection, and anti-patterns (`dos-donts.md`). | Web / Admin UI Projects |
 | **`docs/ai/agents/`** | **General Engineering Guidelines**: Commit styles (`commit-style.md`), async safety and subprocess conventions (`engineering.md`), autonomous loop governance (`loop-charter.md`). | All Projects |
-| **`src/`** | **Starter Codebase**: Rust 2024 Axum backend baseline with `/health` and `/api/v1/ping` endpoints. | New Projects |
+| **`src/`** | **Starter Codebase**: Rust 2024 Axum baseline (`/health`, `/api/v1/ping`) plus `Mailer` (Cloudflare Email Sending first, HTTP, log fallback). Auth routes are product-owned. | New Projects |
 
 ---
 

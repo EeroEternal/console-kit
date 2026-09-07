@@ -61,7 +61,7 @@ When adding or extending Settings:
 3. Section cards use **view vs edit**: load current values; Edit copies into a draft; Cancel restores; a sticky save bar commits. Do not autosave each toggle unless the product already does for that section.
 4. Hide admin-only sections from non-admins (do not render a disabled tease).
 5. Secret config (IdP client secret, bind password, service token) follows the same class as API keys: masked on read, single-reveal on create/rotate. See skill `api-key-lifecycle-security`.
-6. Registration / SSO belong in Settings → general or an Identity section, not on Users.
+6. Registration / SSO belong in Settings → general or an Identity section, not on Users. Verification email is `Mailer` (Cloudflare-first); see [`docs/architecture.md`](../../../docs/architecture.md) § Outbound mail. Do not speak SMTP from Admin or Settings.
 
 ## Password and provisioning
 

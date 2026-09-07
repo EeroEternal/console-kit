@@ -105,13 +105,13 @@ export function AuthCardLayout({ activeTab, title, children }: AuthCardLayoutPro
             style={revealStyle(0)}
           >
             <BrandMark />
-            <span className="text-2xl font-semibold tracking-tight text-foreground/90">
+            <span className="text-xl font-semibold tracking-tight text-foreground">
               {t("auth.productName")}
             </span>
           </div>
 
           <h1
-            className="mb-4 text-4xl font-semibold leading-tight text-foreground animate-in fade-in slide-in-from-bottom-5 duration-700 xl:text-5xl"
+            className="mb-4 text-3xl font-semibold leading-tight text-foreground animate-in fade-in slide-in-from-bottom-5 duration-700"
             style={revealStyle(100)}
           >
             {t("auth.brandingTitle")} <br />
@@ -119,7 +119,7 @@ export function AuthCardLayout({ activeTab, title, children }: AuthCardLayoutPro
           </h1>
 
           <p
-            className="mb-16 max-w-lg text-lg leading-relaxed text-muted-foreground/80 animate-in fade-in slide-in-from-bottom-5 duration-700"
+            className="mb-16 max-w-lg text-body-md leading-relaxed text-muted-foreground animate-in fade-in slide-in-from-bottom-5 duration-700"
             style={revealStyle(200)}
           >
             {t("auth.brandingDescription")}
@@ -131,8 +131,8 @@ export function AuthCardLayout({ activeTab, title, children }: AuthCardLayoutPro
           >
             {loginStats.map((item) => (
               <div key={item.label} className="flex flex-col gap-1">
-                <div className="text-3xl font-semibold text-foreground">{item.value}</div>
-                <div className="text-sm text-muted-foreground/60">{item.label}</div>
+                <div className="text-metric text-foreground">{item.value}</div>
+                <div className="text-meta-sm text-muted-foreground">{item.label}</div>
               </div>
             ))}
           </div>
@@ -141,20 +141,20 @@ export function AuthCardLayout({ activeTab, title, children }: AuthCardLayoutPro
 
       <div className="relative flex flex-1 items-center justify-center overflow-y-auto bg-background p-6">
         <div className="w-full max-w-[440px]">
-          <div className="rounded-lg border border-border bg-card p-10 shadow-sm lg:p-12">
+          <div className="rounded-lg border border-border bg-card p-8 shadow-sm">
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <div className="mb-10 text-center">
+              <div className="mb-6 text-center">
                 <h2 className="text-page-title text-foreground">{title}</h2>
               </div>
               {children}
             </div>
 
-            <div className="mt-8 text-center">
-              <p className="text-sm text-muted-foreground/70">
+            <div className="mt-6 text-center">
+              <p className="text-meta-sm text-muted-foreground">
                 {activeTab === "login" ? t("auth.noAccount") : t("auth.hasAccount")}
                 <Link
                   to={activeTab === "login" ? "/register" : "/login"}
-                  className="ml-2 font-semibold text-primary underline-offset-4 hover:underline"
+                  className="ml-2 font-medium text-primary underline-offset-4 hover:underline"
                 >
                   {activeTab === "login" ? t("auth.registerNow") : t("auth.loginNow")}
                 </Link>

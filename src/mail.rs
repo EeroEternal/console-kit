@@ -31,17 +31,12 @@ impl Mailer {
     pub fn from_env() -> Self {
         let last_verify_url = Arc::new(Mutex::new(None));
 
-        // 1. Cloudflare Email Service API
-        let cf_token = std::env::var("CF_EMAIL_TOKEN")
-            .or_else(|_| std::env::var("OPENHUB_CF_EMAIL_TOKEN"))
-            .unwrap_or_default();
-        let cf_account_id = std::env::var("CF_ACCOUNT_ID")
-            .or_else(|_| std::env::var("OPENHUB_CF_ACCOUNT_ID"))
-            .unwrap_or_default();
+        // 1. Cloudflare Email Sending API
+        let cf_token = std::env::var("CF_EMAIL_TOKEN").unwrap_or_default();
+        let cf_account_id = std::env::var("CF_ACCOUNT_ID").unwrap_or_default();
 
         if !cf_token.is_empty() && !cf_account_id.is_empty() {
             let from = std::env::var("CF_EMAIL_FROM")
-                .or_else(|_| std::env::var("OPENHUB_CF_EMAIL_FROM"))
                 .unwrap_or_else(|_| "noreply@example.com".to_string());
             return Self {
                 inner: MailerKind::Cloudflare {
@@ -54,12 +49,8 @@ impl Mailer {
         }
 
         // 2. Generic HTTP mail endpoint
-        let endpoint = std::env::var("MAIL_ENDPOINT")
-            .or_else(|_| std::env::var("OPENHUB_MAIL_ENDPOINT"))
-            .unwrap_or_default();
-        let token = std::env::var("MAIL_TOKEN")
-            .or_else(|_| std::env::var("OPENHUB_MAIL_TOKEN"))
-            .unwrap_or_default();
+        let endpoint = std::env::var("MAIL_ENDPOINT").unwrap_or_default();
+        let token = std::env::var("MAIL_TOKEN").unwrap_or_default();
 
         if !endpoint.is_empty() && !token.is_empty() {
             Self {

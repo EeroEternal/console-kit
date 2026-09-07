@@ -1,6 +1,5 @@
 import { useState, useEffect, type FormEvent } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
-import { ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { AuthCardLayout } from "@/components/layout/auth-card-layout"
@@ -9,8 +8,7 @@ import { Label } from "@/components/ui/label"
 import { api, getToken, setToken } from "@/lib/api"
 import { t, useI18n } from "@/lib/i18n"
 
-const fieldClassName =
-  "h-12 rounded-xl border-transparent bg-muted/40 px-4 transition-all focus:border-primary/20 focus:bg-background focus:ring-4 focus:ring-primary/5"
+type RegisterStep = "email" | "code" | "password"
 
 function usernameFromEmail(email: string): string {
   return email.split("@")[0]?.toLowerCase().replace(/[^a-z0-9_-]/g, "") ?? ""
@@ -19,6 +17,7 @@ function usernameFromEmail(email: string): string {
 export default function RegisterPage() {
   useI18n()
   const navigate = useNavigate()
+  const [step, setStep] = useState<RegisterStep>("email")
   const [email, setEmail] = useState("")
   const [code, setCode] = useState("")
   const [password, setPassword] = useState("")
@@ -35,7 +34,8 @@ export default function RegisterPage() {
 
   if (getToken()) return <Navigate to="/" replace />
 
-  async function onSendCode() {
+  async function onSendCode(e?: FormEvent) {
+    if (e) e.preventDefault()
     const trimmed = email.trim()
     if (!trimmed || !trimmed.includes("@") || trimmed.includes(" ")) {
       toast.error(t("auth.email"))
@@ -49,6 +49,7 @@ export default function RegisterPage() {
       })
       toast.success(t("auth.codeSent"))
       setCountdown(60)
+      setStep("code")
     } catch (err) {
       toast.error(err instanceof Error ? err.message : t("common.error"))
     } finally {
@@ -56,12 +57,28 @@ export default function RegisterPage() {
     }
   }
 
-  async function onSubmit(e: FormEvent) {
+  async function onVerifyCode(e: FormEvent) {
     e.preventDefault()
     if (code.trim().length !== 6) {
       toast.error(t("auth.codeInvalid"))
       return
     }
+    setPending(true)
+    try {
+      await api<{ ok: boolean }>("/api/v1/auth/verify-code", {
+        method: "POST",
+        body: JSON.stringify({ email: email.trim(), code: code.trim() }),
+      })
+      setStep("password")
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : t("common.error"))
+    } finally {
+      setPending(false)
+    }
+  }
+
+  async function onCompleteRegister(e: FormEvent) {
+    e.preventDefault()
     if (password.length < 8) {
       toast.error(t("auth.passwordTooShort"))
       return
@@ -93,102 +110,125 @@ export default function RegisterPage() {
     }
   }
 
-  const sendLabel = countdown > 0 ? `${countdown}s` : t("auth.sendCode")
-
   return (
     <AuthCardLayout activeTab="register" title={t("auth.registerTitle")}>
-      <form className="space-y-6" onSubmit={onSubmit}>
-        <div className="space-y-2">
-          <Label htmlFor="email" className="ml-1 text-sm font-semibold text-foreground/80">
-            {t("auth.email")}
-          </Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            inputMode="email"
-            autoComplete="username"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={t("auth.emailPlaceholder")}
-            className={fieldClassName}
-            required
-            autoFocus
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="code" className="ml-1 text-sm font-semibold text-foreground/80">
-            {t("auth.code")}
-          </Label>
-          <div className="flex gap-2">
-            <Input
-              id="code"
-              name="code"
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              maxLength={6}
-              autoComplete="one-time-code"
-              placeholder={t("auth.codePlaceholder")}
-              className={`${fieldClassName} flex-1 font-mono tracking-widest`}
-              value={code}
-              onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-              required
-            />
-            <Button
-              type="button"
-              variant="outline"
-              className="h-12 shrink-0"
-              disabled={sendingCode || countdown > 0 || !email.trim()}
-              onClick={() => void onSendCode()}
-            >
-              {sendingCode ? t("common.loading") : sendLabel}
+      <div className="min-h-[280px]">
+        {step === "email" && (
+          <form className="space-y-4" onSubmit={onSendCode}>
+            <div className="space-y-2">
+              <Label htmlFor="email">{t("auth.email")}</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                inputMode="email"
+                autoComplete="username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={t("auth.emailPlaceholder")}
+                required
+                autoFocus
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={sendingCode || !email.trim()}>
+              {sendingCode ? t("common.loading") : t("auth.sendCode")}
             </Button>
-          </div>
-        </div>
+          </form>
+        )}
 
-        <div className="space-y-2">
-          <Label htmlFor="password" className="ml-1 text-sm font-semibold text-foreground/80">
-            {t("auth.password")}
-          </Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="new-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder={t("auth.passwordPlaceholder")}
-            className={fieldClassName}
-            minLength={8}
-            required
-          />
-        </div>
+        {step === "code" && (
+          <form className="space-y-4" onSubmit={onVerifyCode}>
+            <div className="flex items-center justify-between rounded-md border bg-muted/50 px-3 py-2 text-body-md text-muted-foreground">
+              <span className="truncate">{email}</span>
+              <button
+                type="button"
+                className="ml-2 shrink-0 text-meta-sm text-primary underline-offset-4 hover:underline"
+                onClick={() => setStep("email")}
+              >
+                {t("auth.changeEmail")}
+              </button>
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="code">{t("auth.code")}</Label>
+                <button
+                  type="button"
+                  className="text-meta-sm text-primary underline-offset-4 hover:underline disabled:no-underline disabled:opacity-50"
+                  disabled={sendingCode || countdown > 0}
+                  onClick={() => void onSendCode()}
+                >
+                  {countdown > 0 ? `${countdown}s` : t("auth.resendCode")}
+                </button>
+              </div>
+              <Input
+                id="code"
+                name="code"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={6}
+                autoComplete="one-time-code"
+                placeholder={t("auth.codePlaceholder")}
+                className="text-center tabular-nums"
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                required
+                autoFocus
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button type="button" variant="outline" className="w-1/3" onClick={() => setStep("email")}>
+                {t("auth.back")}
+              </Button>
+              <Button type="submit" className="flex-1" disabled={pending || code.trim().length !== 6}>
+                {pending ? t("common.loading") : t("auth.next")}
+              </Button>
+            </div>
+          </form>
+        )}
 
-        <div className="space-y-2">
-          <Label htmlFor="confirm" className="ml-1 text-sm font-semibold text-foreground/80">
-            {t("auth.confirmPassword")}
-          </Label>
-          <Input
-            id="confirm"
-            name="confirm-password"
-            type="password"
-            autoComplete="new-password"
-            value={confirm}
-            onChange={(e) => setConfirm(e.target.value)}
-            placeholder={t("auth.confirmPasswordPlaceholder")}
-            className={fieldClassName}
-            minLength={8}
-            required
-          />
-        </div>
-
-        <Button type="submit" className="h-12 w-full gap-2 text-base font-semibold" disabled={pending}>
-          {pending ? t("common.loading") : t("auth.register")}
-          {!pending && <ArrowRight className="h-5 w-5" />}
-        </Button>
-      </form>
+        {step === "password" && (
+          <form className="space-y-4" onSubmit={onCompleteRegister}>
+            <div className="space-y-2">
+              <Label htmlFor="password">{t("auth.password")}</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={t("auth.passwordPlaceholder")}
+                minLength={8}
+                required
+                autoFocus
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="confirm">{t("auth.confirmPassword")}</Label>
+              <Input
+                id="confirm"
+                name="confirm-password"
+                type="password"
+                autoComplete="new-password"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                placeholder={t("auth.confirmPasswordPlaceholder")}
+                minLength={8}
+                required
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button type="button" variant="outline" className="w-1/3" onClick={() => setStep("code")}>
+                {t("auth.back")}
+              </Button>
+              <Button type="submit" className="flex-1" disabled={pending}>
+                {pending ? t("common.loading") : t("auth.register")}
+              </Button>
+            </div>
+          </form>
+        )}
+      </div>
     </AuthCardLayout>
   )
 }

@@ -29,7 +29,7 @@ This document serves as the **high-density, lightweight entry point (attention s
 | Autonomous agent loops / cron tasks | [`loop-charter.md`](docs/ai/agents/loop-charter.md) |
 | `tokio::spawn` / daemons / script modifications / exit codes | [`engineering.md`](docs/ai/agents/engineering.md) |
 | API key lifecycle / rotation / single-reveal / hash security | skill [`api-key-lifecycle-security`](.agents/skills/api-key-lifecycle-security/SKILL.md) |
-| User attributes / Settings IA / registration / identity source | skill [`user-attributes-settings`](.agents/skills/user-attributes-settings/SKILL.md) |
+| User attributes / Settings IA / registration / outbound mail | skill [`user-attributes-settings`](.agents/skills/user-attributes-settings/SKILL.md); mailer: [`architecture.md`](docs/architecture.md) § Outbound mail |
 | Commit message conventions | [`commit-style.md`](docs/ai/agents/commit-style.md) |
 | Cross-module boundaries / crate splitting / SQL joins | [`module-boundaries.md`](docs/architecture/module-boundaries.md) |
 
@@ -43,7 +43,7 @@ This document serves as the **high-density, lightweight entry point (attention s
 6. **Admin i18n & Linguistic Purity**: All user-visible copy must use `t('namespace.key')` and be written symmetrically to `zh.ts` and `en.ts`. Mixed languages are strictly prohibited.
 7. **Sorting & Search Clarity**: Entity sorting options must explicitly indicate direction (e.g., "Created (New → Old)"); search placeholder text must truthfully state searchable fields.
 8. **Core Data Plane vs. Plugin Boundary**: Custom business logic (headers, auth decoration, masking, session tracking) **must be implemented as Plugins/Middleware**, never hardcoded into the core data pipeline.
-9. **Release Promoter Process**: Tagging and releasing must follow skill [`release`](.agents/skills/release/SKILL.md) (full local gate re-run → multi-point check → human approval hard stop → deployment verification).
+9. **Release Promoter Process**: Tagging must follow skill [`release`](.agents/skills/release/SKILL.md) (gates → version + detailed `docs/changelog.md` + docs → human approval → tag). Empty or title-only changelog is not a release.
 10. **Pre-push Local Quality Gate**: Never use CI as a local sandbox; run full local quality gates (fmt, clippy, tests, admin tsc/build) via skill [`pre-push-local-gates`](.agents/skills/pre-push-local-gates/SKILL.md) before pushing.
 
 ## Skills Index

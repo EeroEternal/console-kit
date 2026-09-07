@@ -92,10 +92,14 @@ Login and register are not operational pages. They do **not** use sidebar + top 
 Structure (same split as the xrouter login page):
 
 - Full-viewport row: `min-h-screen flex`. Language switcher is top-right, not in a product top bar.
-- **Left** (`hidden lg:flex lg:w-1/2`, muted surface): product mark + name, one headline, one supporting sentence, optional three stats. This copy is **product-specific** — replace `auth.productName`, `auth.brandingTitle`, `auth.brandingSubtitle`, `auth.brandingDescription`, and `auth.stat*` when adopting the kit. Do not ship another product's name.
-- **Right**: one form card. Form title only; no casual subtitle under it.
-- **Login fields**: email + password (show/hide). One primary submit.
-- **Register fields**: email + send verification code + password + confirm password. Send-code is outline/ghost, never a second primary. One primary submit.
+- **Left** (`hidden lg:flex lg:w-1/2`, muted surface): product mark + name, one headline (`text-3xl font-semibold`, the only size exception on this page), one supporting sentence (`text-body-md`), optional three stats (`text-metric` + `text-meta-sm`). Copy is **product-specific** — replace `auth.productName`, `auth.brandingTitle`, `auth.brandingSubtitle`, `auth.brandingDescription`, and `auth.stat*` when adopting the kit. Do not ship another product's name. Do not use `text-5xl` / `font-bold`.
+- **Right**: one form card. Form title uses `text-page-title` only; no casual subtitle. Shared `Input` / `Label` / `Button` — do **not** restyle to `h-12`, `rounded-xl`, `tracking-widest`, `text-base`, or extra weights (Type zoo).
+- **Login**: one step. Email + password (show/hide). One primary submit.
+- **Register**: three steps in the **same** card, never one tiled form. Reserve `min-h` so step changes do not jump.
+  1. Email → primary **Send code**
+  2. Code only. Shown email + change-email text button. Resend is a text button, not a second primary. Primary **Continue**.
+  3. Password + confirm. Primary **Create account**.
 - Public routes `/login` and `/register` must not appear in `nav.ts`.
+- **Send code** is `POST /api/v1/auth/send-code` → product handler → `Mailer::send_verification_code`. Outbound mail is Cloudflare-first; see [`docs/architecture.md`](../architecture.md) § Outbound mail. Do not speak SMTP from the UI or add a parallel mail client.
 
-Do not put login inside `DashboardLayout`. Do not build a two-card marketing grid. Do not use username-only login in the kit — identity is email.
+Do not put login inside `DashboardLayout`. Do not build a two-card marketing grid. Do not dump email + verification code + password on one screen (**Tiled create**). Do not use username-only login — identity is email.

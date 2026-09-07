@@ -8,7 +8,7 @@ Named **generated-design** failures (call them by name in reviews):
 | **Selection bar** | Theme-colored left border on the selected row |
 | **Casual subtitle** | Card subtitle that restates the title |
 | **Squeezed table** | Evidence table narrower than the pane |
-| **Tiled create** | Create/edit flattened inline instead of a Dialog |
+| **Tiled create** | Create/edit flattened inline instead of a Dialog; register dumping email + code + password on one form |
 | **Metadata option** | Select label `name · protocol · N keys` |
 | **Slash glue** | `org/project` in one cell |
 | **Layout jump** | Wizard/select inserts unreserved height |
