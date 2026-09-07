@@ -4,6 +4,10 @@ export const en: Record<string, string> = {
   "common.language": "Language",
   "common.chinese": "中文",
   "common.english": "English",
+  "common.account": "Account",
+  "common.settings": "Settings",
+  "common.logout": "Log out",
+  "common.userMenu": "Account menu",
 
   "auth.productName": "console-kit",
   "auth.brandingTitle": "Ship the console",

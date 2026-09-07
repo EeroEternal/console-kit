@@ -4,6 +4,10 @@ export const zh: Record<string, string> = {
   "common.language": "语言",
   "common.chinese": "中文",
   "common.english": "English",
+  "common.account": "账号",
+  "common.settings": "设置",
+  "common.logout": "退出登录",
+  "common.userMenu": "账号菜单",
 
   "auth.productName": "console-kit",
   "auth.brandingTitle": "把控制台做对",

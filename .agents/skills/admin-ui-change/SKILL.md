@@ -24,6 +24,7 @@ If editing the design system itself, open only the chapters you change (plus Har
 | Token table / hex values | `docs/design/tokens.md` |
 | Page title, subtitle, density, i18n wrap | `docs/design/typography.md`, `docs/design/layout.md` (no casual subtitles) |
 | Page shell, sidebar/topbar, page types, dashboard heights, filters | `docs/design/layout.md` |
+| User avatar / account dropdown / logout | `docs/design/layout.md` (User menu) + skill [`user-attributes-settings`](../user-attributes-settings/SKILL.md) |
 | Login / register / auth branding panel | `docs/design/layout.md` (Auth split) |
 | Button / Input / Select / Switch / Tabs sizes and states | `docs/design/components.md` + `docs/design/tokens.md` |
 | Wizard / Select / expand causes jump | `docs/design/layout.md` (Layout stability) |

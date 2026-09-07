@@ -21,9 +21,24 @@ Spacing scale (4px base): **4, 8, 12, 16, 24, 32, 40, 48**. Prefer this ladder; 
 
 12-column grid; gutters 16px or 24px.
 
-**Top bar does not carry business actions.** Left: sidebar trigger. Right: theme, language, org/project, notifications, user. Page primary actions stay in `PageHeader`.
+**Top bar does not carry business actions.** Left: sidebar trigger. Right: theme, language, org/project, notifications, **user menu**. Page primary actions stay in `PageHeader`.
 
 Sidebar entries: `admin/src/lib/nav.ts` (or product equivalent). Do not invent a second menu.
+
+### User menu (top-right, after login)
+
+Canonical: `admin/src/components/layout/user-menu.tsx`. Trigger is a 32px avatar (`UserCircle`), icon-only with `aria-label`. Not a business button.
+
+Dropdown (`align="end"`, `w-56`):
+
+1. **Identity header** — display name (and optional role). Not a form.
+2. **Settings** — `navigate('/settings')`. This is a shortcut to the Settings **page**. Do not inline Settings forms, toggles, or SSO/registration knobs in the menu.
+3. **Change password** — Dialog over the current page (self-service secret). Required when the user has a local password. Not a Settings section.
+4. **Logout** — after a separator; clear session and `navigate('/login')`. Destructive text.
+
+Allowlisted extras (product): Help. Forbidden: global config, identity-provider setup, org/project switch (those have their own top-bar controls), create/save actions.
+
+Settings may also stay in the sidebar; both entries open the same page.
 
 ## Page types
 

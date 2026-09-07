@@ -10,6 +10,10 @@ Do not paste commit titles, `misc`, or empty sections.
 
 ## [Unreleased]
 
+### Added
+
+- **User menu** (top-right after login): 32px avatar dropdown. Settings navigates to `/settings` (does not inline the Settings form). Logout clears the session and returns to `/login`. Change-own-password stays a user-menu Dialog when the product has local passwords. Spec: `docs/design/layout.md` → User menu.
+
 ## [0.2.0] - 2026-09-07
 
 ### Added
