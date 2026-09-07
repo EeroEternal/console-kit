@@ -45,6 +45,7 @@ Do not collapse chapters into one mega-prompt. Load this entry, then **only** th
 | Glance then drill | 数据看板型 / 混合信息型 | KPI row → main module → optional auxiliaries; reserved card heights |
 | Complete a valid object | Dialog / wizard | Create Dialog or multi-step wizard |
 | Change global config | Settings | Settings page only |
+| Sign in / register | Auth split (outside shell) | Full-height left branding + right form card; not sidebar chrome |
 
 New rules enter this file only when a failure **repeats** (promote-lesson: ≥ 2 sessions) or a deterministic check can catch it.
 
@@ -58,6 +59,7 @@ Always load this file (Overview + Hard rules + PR checklist below). Then open **
 | Colors / dark mode / status | [`design/colors.md`](design/colors.md) |
 | Titles, density, wrapping | [`design/typography.md`](design/typography.md), [`design/layout.md`](design/layout.md) |
 | Shell, cards, dashboard rows, filters | [`design/layout.md`](design/layout.md) |
+| Login / register / auth branding | [`design/layout.md`](design/layout.md) → Auth split |
 | Wizard / select height jump | [`design/layout.md`](design/layout.md) → Layout stability |
 | List / master–detail / detail dialog / wizard | [`design/components.md`](design/components.md) (+ layout stability when needed) |
 | Shadows, radius | [`design/surfaces.md`](design/surfaces.md) |

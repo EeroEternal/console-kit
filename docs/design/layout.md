@@ -84,3 +84,18 @@ Rules:
 - Validation errors may appear below actions, but should not push critical controls out of view without a reserved error strip when errors are common on that step.
 
 Canonical references: `ApiKeyUsageExamples` (fixed-height tab switching for curl commands), `ApiKeyCreateWizard` route meta slot (`SelectedRouteMeta` with `min-h`), `RouteCreateWizard` strategy extras `min-h` region.
+
+## Auth split (outside shell)
+
+Login and register are not operational pages. They do **not** use sidebar + top bar, and they are not a seventh chrome. Canonical: `admin/src/components/layout/auth-card-layout.tsx` with `admin/src/pages/login.tsx` and `register.tsx`.
+
+Structure (same split as the xrouter login page):
+
+- Full-viewport row: `min-h-screen flex`. Language switcher is top-right, not in a product top bar.
+- **Left** (`hidden lg:flex lg:w-1/2`, muted surface): product mark + name, one headline, one supporting sentence, optional three stats. This copy is **product-specific** — replace `auth.productName`, `auth.brandingTitle`, `auth.brandingSubtitle`, `auth.brandingDescription`, and `auth.stat*` when adopting the kit. Do not ship another product's name.
+- **Right**: one form card. Form title only; no casual subtitle under it.
+- **Login fields**: email + password (show/hide). One primary submit.
+- **Register fields**: email + send verification code + password + confirm password. Send-code is outline/ghost, never a second primary. One primary submit.
+- Public routes `/login` and `/register` must not appear in `nav.ts`.
+
+Do not put login inside `DashboardLayout`. Do not build a two-card marketing grid. Do not use username-only login in the kit — identity is email.

@@ -40,6 +40,10 @@ fi
 
 while IFS= read -r path; do
   [[ -z "$path" || "$path" == "*" ]] && continue
+  # Public auth routes live outside the sidebar shell.
+  if [[ "$path" == "login" || "$path" == "register" ]]; then
+    continue
+  fi
   if ! grep -qx "/$path" <<<"$hrefs"; then
     echo "✗ <Route path=\"$path\"> has no nav href /$path"
     fail=1
