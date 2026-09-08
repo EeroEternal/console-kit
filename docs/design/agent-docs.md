@@ -39,15 +39,13 @@ User menu **Help** (already allowlisted in [`layout.md`](layout.md) → User men
 
 Auth split stays the branding + form card ([`layout.md`](layout.md) → Auth split).
 
-On the **form card footer**, put **Agent guide** on the same line as Register / Sign in, same `font-semibold text-primary` treatment:
-
-`No account? Register · Agent guide`
+Put **Agent guide** in the **top-right** of the auth page, beside the language switcher (`text-sm text-muted-foreground`, underline on hover). It is chrome, not an auth action.
 
 Do **not**:
 
+- Pair it with Register / Sign in on the form-card footer (those are account actions).
 - Put `/llms.txt` or `/docs/guide.md` on the **left branding panel** (**Raw agent paths**).
-- Add a second filled primary button.
-- Hide the human link only in a muted afterthought line.
+- Make it a filled primary button (Sign in stays the only primary).
 
 Agents do not need that string. They discover docs from static HTML (below).
 

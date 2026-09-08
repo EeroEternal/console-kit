@@ -13,7 +13,7 @@ Do not paste commit titles, `misc`, or empty sections.
 ### Added
 
 - **User menu** (top-right after login): 32px avatar dropdown. Settings navigates to `/settings` (does not inline the Settings form). Logout clears the session and returns to `/login`. Change-own-password stays a user-menu Dialog when the product has local passwords. Spec: `docs/design/layout.md` → User menu.
-- **Agent docs**: public Markdown (`/llms.txt`, `/docs/guide.md`) plus HTML `/help` that renders the same files. Login footer may link “Agent guide”; do not print raw paths on the branding panel. Spec: `docs/design/agent-docs.md`.
+- **Agent docs**: public Markdown (`/llms.txt`, `/docs/guide.md`) plus HTML `/help` that renders the same files. Auth page puts “Agent guide” top-right with the language switcher, not next to Register. Do not print raw paths on the branding panel. Spec: `docs/design/agent-docs.md`.
 
 ## [0.2.0] - 2026-09-07
 
