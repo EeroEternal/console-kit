@@ -36,7 +36,7 @@ Dropdown (`align="end"`, `w-56`):
 3. **Change password** — Dialog over the current page (self-service secret). Required when the user has a local password. Not a Settings section.
 4. **Logout** — after a separator; clear session and `navigate('/login')`. Destructive text.
 
-Allowlisted extras (product): Help. Forbidden: global config, identity-provider setup, org/project switch (those have their own top-bar controls), create/save actions.
+Allowlisted extras (product): Help — navigates to public `/help` (see [`agent-docs.md`](agent-docs.md)). Forbidden: global config, identity-provider setup, org/project switch (those have their own top-bar controls), create/save actions.
 
 Settings may also stay in the sidebar; both entries open the same page.
 
@@ -115,6 +115,7 @@ Structure (same split as the xrouter login page):
   2. Code only. Shown email + change-email text button. Resend is a text button, not a second primary. Primary **Continue**.
   3. Password + confirm. Primary **Create account**.
 - Public routes `/login` and `/register` must not appear in `nav.ts`.
+- Form-card footer may include **Agent guide** on the same line as Register / Sign in (`font-semibold text-primary`). Link to `/help`. Do not print `/llms.txt` or `.md` paths on the left branding panel. Full pattern: [`agent-docs.md`](agent-docs.md).
 - **Send code** is `POST /api/v1/auth/send-code` → product handler → `Mailer::send_verification_code`. Outbound mail is Cloudflare-first; see [`docs/architecture.md`](../architecture.md) § Outbound mail. Do not speak SMTP from the UI or add a parallel mail client.
 
 Do not put login inside `DashboardLayout`. Do not build a two-card marketing grid. Do not dump email + verification code + password on one screen (**Tiled create**). Do not use username-only login — identity is email.

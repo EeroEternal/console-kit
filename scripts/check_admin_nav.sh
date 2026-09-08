@@ -40,8 +40,8 @@ fi
 
 while IFS= read -r path; do
   [[ -z "$path" || "$path" == "*" ]] && continue
-  # Public auth routes live outside the sidebar shell.
-  if [[ "$path" == "login" || "$path" == "register" ]]; then
+  # Public routes live outside the sidebar shell.
+  if [[ "$path" == "login" || "$path" == "register" || "$path" == "help" ]]; then
     continue
   fi
   if ! grep -qx "/$path" <<<"$hrefs"; then

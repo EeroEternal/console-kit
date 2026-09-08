@@ -26,6 +26,7 @@ If editing the design system itself, open only the chapters you change (plus Har
 | Page shell, sidebar/topbar, page types, dashboard heights, filters | `docs/design/layout.md` |
 | User avatar / account dropdown / logout | `docs/design/layout.md` (User menu) + skill [`user-attributes-settings`](../user-attributes-settings/SKILL.md) |
 | Login / register / auth branding panel | `docs/design/layout.md` (Auth split) |
+| Agent guide / `llms.txt` / public `/help` | `docs/design/agent-docs.md` |
 | Button / Input / Select / Switch / Tabs sizes and states | `docs/design/components.md` + `docs/design/tokens.md` |
 | Wizard / Select / expand causes jump | `docs/design/layout.md` (Layout stability) |
 | Shadows, selected-row depth, radius | `docs/design/surfaces.md` |
@@ -44,7 +45,7 @@ Any user-visible page (not only "Admin") loads this skill and `docs/design.md`.
 1. If `admin/src` and `frontend/src` are **both missing**: **stop**. Do not write HTML. Scaffold the React kit in a separate commit, or refuse.
 2. If a kit exists: implement there. Creating `*.html` + inline CSS is **Greenfield HTML**.
 3. Title + redundant subtitle + hero is **Marketing stack** / **Casual subtitle**.
-4. Run `bash scripts/check_ui_stack.sh` and `bash scripts/check_admin_nav.sh` before claiming the UI is done. New operational page = `pages/*.tsx` + `lib/nav.ts` href + `App.tsx` route. Auth split pages (`/login`, `/register`) are public: add the route, do **not** add a sidebar href.
+4. Run `bash scripts/check_ui_stack.sh` and `bash scripts/check_admin_nav.sh` before claiming the UI is done. New operational page = `pages/*.tsx` + `lib/nav.ts` href + `App.tsx` route. Public pages (`/login`, `/register`, `/help`) add the route, do **not** add a sidebar href. Agent docs: [`docs/design/agent-docs.md`](../../../docs/design/agent-docs.md).
 
 ## Do not invent
 If a chapter and an old page disagree, treat the page as drift unless the user asked to change the spec. Prefer shared primitives under `admin/src/components/ui/*` (or the product UI kit) and tokens in `index.css`. **Do not invent** a parallel palette or class vocabulary. Named anti-patterns: [`docs/design/dos-donts.md`](../../../docs/design/dos-donts.md).
