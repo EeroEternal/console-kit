@@ -46,4 +46,9 @@ export const zh: Record<string, string> = {
   "auth.hasAccount": "已有账号？",
   "auth.registerNow": "立即注册",
   "auth.loginNow": "去登录",
+
+  "datePicker.selectRange": "选择日期范围",
+  "datePicker.selectStart": "选择开始日期",
+  "datePicker.singleDayOrPickEnd": "已选当天，可再点结束日期",
+  "datePicker.clear": "清除日期",
 }

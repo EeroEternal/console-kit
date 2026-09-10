@@ -14,6 +14,7 @@ Named **generated-design** failures (call them by name in reviews):
 | **Layout jump** | Wizard/select inserts unreserved height |
 | **Native confirm** | `window.confirm` / `alert` |
 | **Invented token** | New hex or radius instead of `tokens.md` / `index.css` |
+| **Board gray** | Copying visual-spec local gray (`#111827`, `#E5E7EB`, `#F5F6F7`, `#F8F8F8`, `#9CA3AF`, `#254AC5`) into pages or `index.css` |
 | **Greenfield HTML** | New `index.html` + inline CSS/JS instead of the React kit |
 | **Marketing stack** | Title + redundant subtitle + hero, as if this were a landing page |
 | **Fifty-nine hundred** | Inventing a 50–900 color ramp instead of semantic + alpha |
@@ -36,6 +37,8 @@ Named **generated-design** failures (call them by name in reviews):
 - Do dismiss Dialog / Sheet / AlertDialog / Popover when the user clicks the overlay outside the popup or presses Escape.
 - Do confirm deletes and other destructive actions with `AlertDialog` / `ConfirmAlertDialog`; use toast for short non-blocking feedback.
 - Don't add hard-coded page colors or create a second brand accent.
+- Don't copy visual-spec board-local gray (`#111827`, `#E5E7EB`, `#F5F6F7`, `#F8F8F8`, `#9CA3AF`, `#254AC5`) into pages or `index.css`; map to existing tokens (**Board gray**).
+- Don't cite Search+AI or Tabs as existing kit primitives; they are spec targets until added under `admin/src/components/ui/` with a real caller. DatePicker is shipped; do not paste a third-party calendar into a page.
 - Don't rely on `truncate` without a width constraint or responsive fallback.
 - Don't use a theme-colored left border / vertical accent to mark selected rows; use `bg-primary/10` instead of a near-invisible muted gray.
 - Don't hide destructive actions inside visually neutral buttons.

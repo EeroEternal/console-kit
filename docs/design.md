@@ -19,8 +19,9 @@ Composition (from the enterprise visual spec v1.0):
 
 - Palette is **semantic color + alpha** (10% selected fill, 15% status hover, 20% focus ring). Do not invent a 50–900 ramp.
 - Chrome is fixed sidebar (256px / 48px) + top bar (56px) + fluid work area. The top bar holds collapse, theme, language, org, notifications, user — **not** business actions. Those belong in `PageHeader`.
-- **One primary button per view.** Secondary / ghost for the rest.
+- **One primary button per view.** Secondary / ghost for the rest. Page 次要按钮 is `Button variant="outline"`, not filled `secondary`.
 - Pick one of the six page types below. Do not invent a seventh chrome.
+- Control state tables (Button → Alert Dialog), including unshipped Search / Tabs targets, live in [`design/components.md`](design/components.md). DatePicker is a kit primitive. Do not copy board-local gray into tokens.
 
 ## How agents use this file
 
@@ -63,6 +64,7 @@ Always load this file (Overview + Hard rules + PR checklist below). Then open **
 | Agent-facing docs / `/help` / `llms.txt` | [`design/agent-docs.md`](design/agent-docs.md) |
 | Wizard / select height jump | [`design/layout.md`](design/layout.md) → Layout stability |
 | List / master–detail / detail dialog / wizard | [`design/components.md`](design/components.md) (+ layout stability when needed) |
+| Control states / DatePicker / Search / Tag | [`design/components.md`](design/components.md) → Control states |
 | Shadows, radius | [`design/surfaces.md`](design/surfaces.md) |
 | Quick anti-patterns | [`design/dos-donts.md`](design/dos-donts.md) |
 | Editing the visual baseline | touched chapter(s) + Hard rules / PR checklist; token table in `design/tokens.md` |

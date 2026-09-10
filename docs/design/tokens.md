@@ -166,6 +166,17 @@ components:
     rounded: "{rounded.lg}"
     height: 32px
     typography: "{typography.body-sm}"
+  date-picker-trigger:
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.foreground}"
+    rounded: "{rounded.lg}"
+    height: 32px
+    padding: 12px
+    typography: "{typography.body-sm}"
+  date-picker-panel:
+    minWidth: 280px
+    maxHeight: 384px
+    cell: 40px 32px
   switch-default:
     track: 36px 20px
     thumb: 16px
@@ -181,23 +192,53 @@ components:
     textColor: "{colors.foreground}"
     rounded: "{rounded.lg}"
     padding: "{spacing.lg}"
+  badge-primary:
+    backgroundColor: "primary / 10%"
+    textColor: "{colors.primary}"
+    borderColor: "primary / 20%"
+    rounded: "{rounded.sm}"
+    padding: 8px 2px
+    height: 22px
+    typography: "{typography.label-sm}"
+  badge-neutral:
+    backgroundColor: "{colors.muted}"
+    textColor: "{colors.muted-foreground}"
+    borderColor: "{colors.border}"
+    rounded: "{rounded.sm}"
+    padding: 8px 2px
+    height: 22px
+    typography: "{typography.label-sm}"
+  badge-experimental:
+    backgroundColor: "experimental / 10%"
+    textColor: "{colors.experimental}"
+    borderColor: "experimental / 20%"
+    rounded: "{rounded.sm}"
+    padding: 8px 2px
+    height: 22px
+    typography: "{typography.label-sm}"
   badge-success:
-    backgroundColor: "{colors.success-foreground}"
+    backgroundColor: "success / 10%"
     textColor: "{colors.success}"
-    rounded: "{rounded.full}"
-    padding: 8px
+    borderColor: "success / 20%"
+    rounded: "{rounded.sm}"
+    padding: 8px 2px
+    height: 22px
     typography: "{typography.label-sm}"
   badge-warning:
-    backgroundColor: "{colors.warning-foreground}"
+    backgroundColor: "warning / 10%"
     textColor: "{colors.warning}"
-    rounded: "{rounded.full}"
-    padding: 8px
+    borderColor: "warning / 20%"
+    rounded: "{rounded.sm}"
+    padding: 8px 2px
+    height: 22px
     typography: "{typography.label-sm}"
   badge-destructive:
-    backgroundColor: "{colors.destructive-foreground}"
+    backgroundColor: "destructive / 10%"
     textColor: "{colors.destructive}"
-    rounded: "{rounded.full}"
-    padding: 8px
+    borderColor: "destructive / 20%"
+    rounded: "{rounded.sm}"
+    padding: 8px 2px
+    height: 22px
     typography: "{typography.label-sm}"
 ---
 
@@ -207,4 +248,8 @@ Canonical semantic token table for Admin UI (enterprise visual spec v1.0). Produ
 
 Narrative: [colors.md](colors.md) · [typography.md](typography.md) · [layout.md](layout.md) · [components.md](components.md).
 
-Alpha: primary/success/destructive at 10% fill, 15% status hover, 20% focus ring. Quiet selection is `bg-primary/10`.
+Alpha: primary/success/destructive/warning/experimental at 10% tag fill, 15% status hover, 20% tag border / focus ring. Quiet selection is `bg-primary/10`.
+
+Badge geometry is 22px tall, pad 8×2, radius 4px (`rounded.sm`) — match `admin/src/components/ui/badge.tsx`. Do not use `rounded.full` or solid `*-foreground` washes for status tags.
+
+Board-local gray (`#111827`, `#E5E7EB`, `#F5F6F7`, `#F8F8F8`, `#F9F9F9`, `#9CA3AF`, `#254AC5`) is **not** in this table. Control state mapping: [`components.md`](components.md) → Control states.

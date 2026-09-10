@@ -27,7 +27,9 @@ If editing the design system itself, open only the chapters you change (plus Har
 | User avatar / account dropdown / logout | `docs/design/layout.md` (User menu) + skill [`user-attributes-settings`](../user-attributes-settings/SKILL.md) |
 | Login / register / auth branding panel | `docs/design/layout.md` (Auth split) |
 | Agent guide / `llms.txt` / public `/help` | `docs/design/agent-docs.md` |
-| Button / Input / Select / Switch / Tabs sizes and states | `docs/design/components.md` + `docs/design/tokens.md` |
+| Button / Input / Select / Switch / Tabs / Tag sizes and states | `docs/design/components.md` (Control states) + `docs/design/tokens.md` |
+| Date picker | `docs/design/components.md` (Control states) + `admin/src/components/ui/date-range-picker.tsx` |
+| Top-bar Search+AI | `docs/design/components.md` (Control states — unshipped in kit; xrouter `GlobalAiSearch` is product) |
 | Wizard / Select / expand causes jump | `docs/design/layout.md` (Layout stability) |
 | Shadows, selected-row depth, radius | `docs/design/surfaces.md` |
 | New list page, row actions, create entry | `docs/design/components.md` (Entity list pattern) + `docs/ai/agents/ui-entry.md` (列表排序与检索) |

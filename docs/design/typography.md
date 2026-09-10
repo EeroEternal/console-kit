@@ -20,7 +20,7 @@ Text hierarchy (visual spec v1.0). Build rank with **weight, color, and spacing*
 | Secondary | 12 / 16–20 | 400 | Hints, timestamps |
 | Metric | 20 | 600 | KPI numbers (`tabular-nums`) |
 
-Weights in product UI: **400 / 500 / 600** only. Do not use 30px / 24px marketing headlines on admin pages.
+Weights in product UI: **400 / 500 / 600** only. Do not use 30px / 24px marketing headlines on admin pages. The visual-spec Card board’s 24px metric and 14px card title are **not** adopted — KPI stays 20, module/card titles stay 16. AlertDialog title uses kit `text-lg` (18px) as a **dialog-title exception**; do not add 18px to this table or to page chrome.
 
 - Do not pair titles with a default subtitle.
 - Explanatory copy is body/secondary — in empty states, dialogs, or errors, **not** under a page or card title.

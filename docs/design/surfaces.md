@@ -21,9 +21,10 @@ Depth rules:
 
 The shape language is modest and engineered. Corners are soft enough to feel modern, but not so rounded that operational tooling starts to feel playful.
 
-- Default radius is 8px.
-- Small inner treatments may reduce to 4px or 6px when needed by nested elements.
-- Pills and badges can use full rounding.
+- Default radius is 8px (`rounded-lg` on Card, Dialog, Select).
+- Small inner treatments may reduce to 4px or 6px (Input, Badge, menu row, icon button).
+- Status tags / Badge use **4px**, not pills. Full rounding is for Switch thumbs and true chips only.
+- The visual-spec Card board (12px radius) is **not** the Card default. Entity list outer `rounded-xl` is a local override.
 - Sharp corners and fully rounded controls should not be mixed randomly within the same screen.
 
 Shape rules:

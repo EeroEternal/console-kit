@@ -46,4 +46,9 @@ export const en: Record<string, string> = {
   "auth.hasAccount": "Already have an account?",
   "auth.registerNow": "Create one",
   "auth.loginNow": "Sign in",
+
+  "datePicker.selectRange": "Select date range",
+  "datePicker.selectStart": "Select start date",
+  "datePicker.singleDayOrPickEnd": "Day selected. Click another day to set the end.",
+  "datePicker.clear": "Clear dates",
 }

@@ -27,11 +27,13 @@ Alpha (light mode):
 
 | Color | 10% | 15% | 20% |
 | --- | --- | --- | --- |
-| Primary | Selected fill, menu active (`bg-primary/10`) | — | Focus ring |
-| Success | Badge fill | Hover | Focus ring |
-| Destructive | Badge fill | — | Focus ring |
+| Primary | Selected fill, menu active, 信息 tag | — | Focus ring, tag border |
+| Success | Badge fill | Hover | Focus ring, tag border |
+| Destructive | Badge fill | — | Focus ring, tag border |
+| Warning | Badge fill | Hover | Tag border |
+| Experimental | 辅助 tag fill | Hover | Tag border |
 
-DevTools-measured hover hex on a live page (for example secondary border `#D9D9D9`, switch-on `#254AC5`) is **not** a new token. Follow the semantic names above.
+DevTools-measured or board-local hex (secondary border `#D9D9D9`, switch-on `#254AC5`, tab track `#F5F6F7`, card `#111827` / `#E5E7EB`, placeholder `#9CA3AF`, search fill `#F8F8F8`) is **not** a new token. Follow the semantic names above. Named anti-pattern: **Board gray**.
 
 Usage rules:
 

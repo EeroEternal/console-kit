@@ -2,26 +2,151 @@
 
 Components follow semantic roles before custom styling. Reuse baseline UI primitives and preserve their intended variants.
 
-- Buttons: use semantic variants for primary, secondary, ghost, link, and destructive actions. Do not restyle a button into a new primary system with ad hoc classes.
+## Overlay, create, and shared rules
+
 - Dialogs and alert dialogs: keep the `header -> title -> description -> content -> footer` structure and align primary and secondary actions consistently.
 - Dialog viewport bounds & collapsible content (global): all dialogs, sheets, and alert overlays must strictly bound their vertical and horizontal footprint within the screen (`max-h-[85vh]` or `max-h-[90vh]` with `overflow-y-auto`). Large blocks of examples, technical tokens, long JSON/cURL blocks, or secondary options inside dialogs must use collapsible accordions (`CollapsibleUsageCodeBlock`) or tabs, never unconstrained vertical stacking that pushes confirmation buttons or dialog headers off-screen.
-- Overlay dismiss (global): clicking the dimmed area outside a popup (Dialog / Sheet / AlertDialog / Popover) must close it. Escape must also close it. Do not block `onOpenChange(false)` for outside clicks or Escape unless a rare, explicitly documented exception is required (for example an irreversible one-shot secret reveal that still unfinished). Prefer the shared `Dialog` / `AlertDialog` / `Sheet` primitives — they already dismiss on overlay click; never reimplement a modal that ignores outside clicks.
+- Overlay dismiss (global): clicking the dimmed area outside a popup (Dialog / Sheet / AlertDialog / Popover) must close it. Escape must also close it. Do not block `onOpenChange(false)` for outside clicks or Escape unless a rare, explicitly documented exception is required (for example an irreversible one-shot secret reveal that still unfinished). Prefer the shared `Dialog` / `AlertDialog` / `Sheet` primitives — they already dismiss on overlay click; never reimplement a modal that ignores outside clicks. The visual-spec line “是否支持点击遮罩关闭，根据业务场景配置” does **not** override this rule.
 - No native browser popups: never use `window.confirm`, `window.alert`, or `window.prompt` (or the bare `confirm` / `alert` / `prompt` globals) in Admin UI. Destructive actions (delete from ellipsis menus, confirm buttons, bulk remove, clear, revoke, etc.) must use shared `AlertDialog` / `ConfirmAlertDialog`. Short success or error feedback uses toast; blocking confirmations use our Dialog/AlertDialog overlays so styling, i18n, and overlay-dismiss rules stay consistent.
 - All entity creation opens as a Dialog over the list — never a full-page form or page replacement. Simple creates (projects, organizations, users, providers, models, **API Keys**) use a compact create Dialog. API Key create is a single page: name + project + route, with call boundaries in a fold; do not use a stepper. Route create remains a multi-step Dialog wizard (`sm:max-w-5xl`, stepper + main panel + summary sidebar). Cancel / overlay click / Escape close the dialog. Entity **detail / edit** always stays a compact Dialog.
 - API Key create and Route create are separate flows. Creating an API Key only binds an **existing** route (name + project + route select). Do not embed “create dedicated route”, strategy/provider pickers, or smart-routing setup inside the API Key wizard. Create routes on the Routes page; create keys on the API Keys page.
 - Toasts: transient feedback should use the shared top-center toast pattern instead of a blocking modal. Success feedback uses the solid `success` green surface with `success-foreground` text, keeps copy short, and disappears without interrupting the current workflow.
 - Inputs, selects, and switches: favor the shared component set instead of raw HTML controls. Native `select` should not appear in product pages.
-- **One primary button per view.** Height 40px, radius 6px, pad 12×8. Hover darkens primary (`#1F3A89`); active `#182F70`; disabled 50% opacity; keyboard focus is a 2px primary ring.
-- Secondary button: white fill, 1px border, hover `muted`. Icon button: 28×28, 16px icon, transparent until hover.
-- Form `Input`: 40px, radius 4px, 1px border. Focus = primary border + 2px ring. Error = destructive border. Disabled = muted fill.
-- Toolbar `Select` / date trigger: 32px, radius 8px. Panel max-height 240px (select) / 384px (date), scroll inside. Show 3–5 options when possible.
-- Top-bar search (if present): 32px, radius 8px, muted fill until focus. Dropdown 320×360 max.
-- `Switch`: track 36×20, thumb 16, radius 10px, 150ms ease. On = primary track, not a new blue.
-- `Tabs`: sibling content switch under the page title (2–8 items). Active = primary text + 2px primary underline. **Not** hierarchy navigation. No icon+label mix. Single selection.
 - Select / Combobox option labels show **only the entity identity** (usually the display name). Do not pack protocol, strategy, bound-key counts, status, or other secondary fields into the option string with `·` / `/`. After the user picks a value, secondary facts may appear in a separate summary row, labeled fields, or the detail dialog — never inside the dropdown options themselves. Canonical good examples: API Key detail route select and `ApiKeyRouteSummary` (`label: item.name`).
-- Badges: reserve for status and compact metadata; they must support longer text when localization expands labels.
 - Tables: selected state belongs to `bg-primary/10` and medium-weight text. Do not use a theme-colored left border as a selection indicator.
-- Cards: use them as containers for major sections, but avoid duplicating the page title as a second identical card title.
+
+## Control states (visual spec)
+
+State tables below are the enterprise visual spec control chapter. Hex in those boards that is **not** in [`tokens.md`](tokens.md) is DevTools-measured or board-local — map it, do not invent a token. Named anti-pattern: **Board gray** (`#111827`, `#6B7280`, `#E5E7EB`, `#F5F6F7`, `#F8F8F8`, `#F9F9F9`, `#9CA3AF`, `#254AC5`). Use `foreground` / `muted-foreground` / `border` / `muted` / `primary` instead.
+
+Unshipped primitives (Search+AI, Tabs) are specified here so a later kit add has a target. They are **not** in `admin/src/components/ui/` today. Do not cite them as existing; do not paste a third-party skin into a page. Add the primitive to the kit first, with a real caller. DatePicker is shipped (`calendar.tsx` / `date-range-picker.tsx`); the product caller is xrouter billing.
+
+### Button
+
+Use semantic variants. Do not restyle a button into a new primary system with ad hoc classes. **One primary button per view.**
+
+| Kind | Kit variant | Size | Notes |
+| --- | --- | --- | --- |
+| Primary | `default` | 40px, radius 6px (`rounded-md`), pad 12×8 | Default `bg-primary`; hover `bg-primary-hover` (`#1F3A89`); active `bg-primary-active` (`#182F70`); disabled 50% opacity; focus-visible 2px primary ring |
+| Secondary (spec 次要按钮) | **`outline`**, not `secondary` | same 40 / 6 | White fill, 1px `border-input`, text `foreground`; hover `bg-muted`; active a step darker muted. `variant="secondary"` is filled muted — a different role. Dialog footer **Close** in the Entity detail pattern may stay `secondary`; page-level 次要操作 (导入 / 取消 on a form) use `outline` |
+| Destructive | `destructive` | same | Confirm via AlertDialog; do not hide destroy in a neutral button |
+| Ghost / text | `ghost` / `link` | — | Non-primary page actions |
+
+### Icon button
+
+`Button size="icon"` is 28×28, icon 16×16, radius 6px. Default transparent; icon `muted-foreground`. Hover `bg-muted` + `foreground`; active a step darker muted. Disabled 50%. Hit target may be 32×32; the visible control stays 28. Always an accessible name + Tooltip.
+
+### Input
+
+Form `Input` (`admin/src/components/ui/input.tsx`): height 40px, radius 4px (`rounded-sm`), 1px `border-input`, pad 12×8, 14/20. Kit text weight is 400 (`text-sm`); the board’s 500 is **not** applied (avoid a global reflow until a dedicated change). Placeholder uses `muted-foreground`, not a new gray.
+
+| State | Fill | Border | Text |
+| --- | --- | --- | --- |
+| Default / hover / filled | `background` | `input` | `foreground` |
+| Focus | `background` | primary + 2px ring | `foreground` |
+| Disabled | `muted` | `input` | 50% |
+| Error (`aria-invalid`) | `background` (do **not** reuse disabled fill) | `destructive` | `foreground` |
+
+The board paints error with the same wash as disabled (`#F9F9F9`) and a `#EF4444` border. Do not follow that: error is a border-only destructive token (`#EF4343`), so error and disabled stay distinct.
+
+### Search (unshipped in kit)
+
+No `search.tsx` in the kit. xrouter ships product `GlobalAiSearch` in the top bar (help/AI backend — not a kit primitive). When another product needs the chrome only, extract a kit field first:
+
+- Height 32px, radius 8px, width 224px (288px on large screens)
+- Default fill `muted` (board `#F8F8F8`); focus white + primary border + 2px ring
+- Horizontal pad 32px including 16px icon; right-side AI submit 24×24 primary
+- Dropdown 320×360 max, 8px below the field, scroll inside
+- Font 12–14px; disabled 50%
+
+Do not build this as page-local HTML.
+
+### Select
+
+Toolbar `Select` (`admin/src/components/ui/select.tsx`): trigger 32px (`h-8`), radius 8px (`rounded-lg`), 1px border. Hover `bg-muted`. Focus primary ring. Disabled 50%. Panel `max-h-[240px]`, `p-2` (8px), width follows trigger, scroll inside. Group labels use `muted-foreground`. Prefer 3–5 visible options.
+
+Board “左右 32px 含箭头区” is a reserved chevron column, not extra content padding. Kit trigger is `px-3` + 14px chevron — do not invent a second select.
+
+### Date Picker
+
+Kit primitives: `admin/src/components/ui/calendar.tsx`, `date-range-picker.tsx`. Product caller: xrouter billing `usage-query-bar.tsx` (`DateRangePicker`). Do not import `@/lib/billing-filters` into the kit picker; presets and `YYYY-MM-DD` strings are passed in.
+
+- Trigger 32px (`h-8`), radius 8px, pad 12px, icon gap 8px, min-width 224px; placeholder `muted-foreground`
+- Panel min-width 280px, max-height 384px, 8px below the trigger, scroll inside
+- Chrome rows (shortcuts, month nav, footer) 32px; weekday row 24px; grid 32×40 (`[--cell-size:2.5rem]` + `h-8`); shortcut gap 8px
+- Default date: transparent, radius 4px. Hover `bg-muted`. Selected: `bg-primary` + primary-foreground. Disabled 50% on muted. Today: primary dot under the number (not a filled accent cell). In-range: `bg-primary/10` + primary text (not board `#E8F1FE`). Range start/end: same as selected
+- Structure: calendar → optional shortcuts (今天 / 24H / 近三天 / 近一周 from the caller) → 清除
+- Copy keys: `datePicker.selectRange` / `selectStart` / `singleDayOrPickEnd` / `clear`
+
+### Switch
+
+`admin/src/components/ui/switch.tsx`: track 36×20 (`w-9 h-5`), thumb 16, radius 10px, 2px inset, 150ms. Adjacent label gap 8px.
+
+| State | Track |
+| --- | --- |
+| Off | `bg-border`; hover `bg-input` |
+| On | `bg-primary`; hover `bg-primary-hover` |
+| Focus | 2px primary ring, `ring-offset-2` |
+| Disabled | 50%, not clickable |
+
+On-state is **primary**, never board `#254AC5` / `#2862B3` / `#3775D0`. Kit easing is `ease-out`; spec `cubic-bezier(0.4, 0, 0.2, 1)` is `ease-in-out` — do not retune in a page.
+
+### Tabs (unshipped as a primitive)
+
+No `tabs.tsx`. Sibling content tabs (2–8 items, single select, under the page title or above a module) need a kit primitive first:
+
+- Height 40px, width follows label, track `muted` (not `#F5F6F7`)
+- Default `foreground`; hover a step darker; active `text-primary` + 2px primary underline; disabled `muted-foreground`
+- **Not** hierarchy navigation. No icon+label mix. Overflow: horizontal scroll, do not wrap into a second row
+
+`SettingsSectionNav` is a **filled-pill section switcher** (`bg-primary` when active, icons allowed). It is the Settings IA pattern, not Tabs. Do not restyle it into underline tabs.
+
+### Tag / Badge
+
+`Badge` (`admin/src/components/ui/badge.tsx`): height ~22px, pad 8×2, 12px/500, radius **4px** (`rounded-sm`), 1px border, wrap at word boundaries. Not a pill (`rounded-full` in older token YAML was drift).
+
+| Spec type | Token mapping | Kit variant |
+| --- | --- | --- |
+| 信息 | `text-primary bg-primary/10 border-primary/20` | outline + those classes, or enabled-status pattern |
+| 中性 | `text-muted-foreground bg-muted border-border` | `secondary` / `outline` |
+| 辅助 | `experimental` 10/20 | `experimental` |
+| 成功 | `success` 10/20 | `success` |
+| 危险 | `destructive` 10/20 | `destructive` |
+| 警告 | `warning` 10/20 | `warning` |
+
+信息标签 is **primary**, not `Badge variant="info"` (`--info` `#3B82F6`). Hover on status tags may use `/15`. Text 1–6 CJK / 1–10 Latin; longer labels wrap. Deletable tags only when the job needs remove.
+
+### Card
+
+Cards contain tables, forms, dashboards, detail panes, and empty states. Do not duplicate the page title as a second identical card title.
+
+Canonical kit (`admin/src/components/ui/card.tsx`): `bg-card`, `border-border`, **radius 8px** (`rounded-lg`), `CardTitle` = section title 16/24/600, description 12–14 muted, KPI metric **20**/600 (`text-metric`). Header/content pad 24px (`px-6` / `py-6`) unless a pattern overrides (entity list outer card `p-4 sm:p-6`; nested overview cards `p-4`).
+
+The board’s Card page (12px radius, border `#E5E7EB`, type `#111827` / `#6B7280`, title 14px, metric 24px) is **not adopted** — it is a foreign gray scale. Entity list `rounded-xl` is a local override, not the Card default. Overflow: `overflow-hidden` + `min-h-0` on dense cards.
+
+### Dialog / Modal
+
+Overlay: `bg-black/50 backdrop-blur-sm` (already in the kit). Container: `bg-background`, `border`, radius 8px, `max-h-[85vh]`, body scrolls, header/footer stay reachable.
+
+Widths — do **not** collapse to the board’s 600px:
+
+| Job | Width |
+| --- | --- |
+| Kit default | `max-w-2xl` |
+| Compact create / small form | up to ~600px is fine |
+| Entity detail / edit | `max-w-3xl` |
+| Route create wizard | `sm:max-w-5xl` |
+
+Padding stays on the 4px ladder: content `p-6` (24px), not board 20px. Footer actions: secondary outline **Cancel** + one primary. States: default; long content scrolls inside; submitting disables the primary and shows progress on that button; validation errors stay in the dialog (do not close).
+
+### Alert Dialog
+
+`AlertDialog` / `ConfirmAlertDialog` for destructive or irreversible confirms. Same overlay as Dialog. Container `max-w-lg`, `max-h-[85vh]`, radius 8px, `p-6`, `border-border`.
+
+- Title: kit `text-lg font-semibold` (18px) — a **dialog-title exception**, not a new step on the 12/14/16/20 scale. Color `foreground`
+- Description: 14/400 `muted-foreground`; 8px below the title
+- Actions: 24px above, 8px between buttons; desktop right-aligned, small screens stack (`flex-col-reverse sm:flex-row sm:justify-end`)
+- Focus trap; Esc / overlay / Cancel close; after the primary action, close
 
 ### Detail presentation modes
 
